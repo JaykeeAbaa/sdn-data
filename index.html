@@ -3,109 +3,275 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account</title>
+  <title>Client Registration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
-      /* padding: 0; */ /* Remove or comment out */
-      padding: 20px; /* <<< ADDED: Creates space around the container */
       background-color: #f9f9f9;
-      display: flex;
-      justify-content: center;
-      /* align-items: center; */ /* Remove or comment out */
-      align-items: flex-start; /* <<< CHANGED: Aligns container to top (within padding) */
+      /* Add padding-top to offset the fixed header height */
+      /* ADJUST THIS VALUE based on your actual header height */
+      padding-top: 85px;
       min-height: 100vh;
-      box-sizing: border-box; /* <<< ADDED: Include padding in body's total height */
+      box-sizing: border-box;
     }
+
+    /* --- HEADER STYLES --- */
+    .app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100%;
+        background-color: #fff;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+        height: 60px;
+        width: auto;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .header-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .office-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #222;
+        margin: 0 0 4px 0;
+    }
+
+    .office-address {
+        font-size: 13px;
+        color: #666;
+        margin: 0;
+        line-height: 1.4;
+    }
+    /* --- END HEADER STYLES --- */
+
 
     .container {
-      /* width: 375px; */ /* Consider changing this */
-      width: 100%;       /* <<< RECOMMENDED CHANGE */
-      max-width: 375px;  /* <<< RECOMMENDED ADDITION: Limits width */
+      width: 100%;
+      max-width: 400px;
       background-color: #fff;
-      border-radius: 12px; /* Rounded corners */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-      padding: 25px 20px; /* <<< ADJUSTED: Slightly more vertical padding inside */
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      padding: 20px 20px 25px 20px;
       box-sizing: border-box;
-      /* overflow: hidden; */ /* Removed overflow:hidden to allow shadows/focus rings */
       position: relative;
+      margin: 20px auto;
     }
 
-    h1 { /* Assuming you might reuse h1, styled it */
+    h2 { /* Form title */
       font-size: 24px;
       font-weight: bold;
       color: #222;
-      margin-top: 0; /* Remove default top margin if padding handles it */
-      margin-bottom: 25px; /* Adjusted margin */
-      text-align: center; /* Center the heading */
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        color: #777;
+        margin-bottom: 30px;
+        text-align: center;
     }
 
     .form-group {
       margin-bottom: 20px;
     }
 
-    label {
+    /* --- Field Title (Label) Font Size --- */
+    label, .form-label {
       display: block;
-      font-size: 14px;
+      font-size: 15px;  /* <<< Standard mobile size (increased slightly) */
       color: #555;
-      margin-bottom: 8px; /* Increased space */
+      margin-bottom: 8px;
     }
 
-    /* Unified style for input-like fields */
+    .required {
+        color: #FF6600;
+        margin-left: 3px;
+        font-weight: bold;
+    }
+
+    /* --- Input/Select/Textarea Font Size --- */
     input[type="text"],
-    /* input[type="sex"], */ /* input type="sex" is not standard HTML */
-    input[type="password"],
-    select, /* Added for potential future use */
-    textarea /* Added for potential future use */
-     {
+    input[type="number"],
+    select,
+    textarea {
       width: 100%;
       padding: 12px 15px;
-      font-size: 16px;
+      font-size: 16px; /* <<< Standard 16px for mobile input */
       border: 1px solid #ddd;
       border-radius: 8px;
       box-sizing: border-box;
-      outline: none; /* Remove default focus outline */
-      font-family: inherit; /* Ensure consistent font */
+      outline: none;
+      background-color: #fff;
+      color: #333;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      font-family: inherit;
     }
 
-   /* Specific example removed as input type="sex" isn't standard
-    input[type="text"].name-field{
-        border-color: #FF6600;
-    } */
+    /* --- Placeholder Font Size --- */
+    input::placeholder,
+    textarea::placeholder {
+        color: #aaa;
+        font-size: inherit; /* <<< Inherits 16px from input/textarea */
+        /* font-style: italic; */ /* Optional */
+    }
 
     input[type="text"]:focus,
-    /* input[type="sex"]:focus, */
-    input[type="password"]:focus,
-    select:focus, /* Added */
-    textarea:focus /* Added */
-    {
-      border-color: #FF6600; /* Orange focus color */
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #FF6600;
     }
 
-    .password-container { /* Kept for potential reuse */
-      position: relative;
+    /* --- Select Box Placeholder Text --- */
+    select {
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.4-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 12px auto;
+        padding-right: 40px;
+    }
+    /* Styles the select box when the default disabled option is selected */
+    select:required:invalid {
+      color: #aaa; /* <<< Placeholder color */
+      /* font-style: italic; */ /* Optional */
+    }
+    select option[value=""][disabled] {
+      display: none; /* Hide the placeholder option from dropdown */
+    }
+     select option {
+      color: #333; /* Normal text color for dropdown options */
     }
 
-    .password-container input {
-        padding-right: 40px; /* Make space for the eye icon */
+    textarea {
+        resize: vertical;
+        min-height: 80px;
     }
 
-    .password-toggle { /* Kept for potential reuse */
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
+    .hidden {
+        display: none;
+    }
+    .mt-2 {
+        margin-top: 10px;
+    }
+    .form-hint {
+        font-size: 12px;
+        color: #888;
+        margin-top: 5px;
+    }
+
+    .first-visit-checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 25px;
+    }
+    .first-visit-checkbox-group input[type="checkbox"] {
+        width: auto;
+        margin-right: 10px;
+        accent-color: #FF6600;
+        height: 16px;
+        width: 16px;
         cursor: pointer;
-        color: #999;
+         appearance: none;
+         -webkit-appearance: none;
+         -moz-appearance: none;
+         border: 1px solid #ccc;
+         border-radius: 3px;
+         position: relative;
+         top: 1px;
+    }
+     .first-visit-checkbox-group input[type="checkbox"]:checked {
+         background-color: #FF6600;
+         border-color: #FF6600;
+     }
+     .first-visit-checkbox-group input[type="checkbox"]:checked::before {
+         content: '\2714';
+         font-size: 12px;
+         color: white;
+         position: absolute;
+         left: 50%;
+         top: 50%;
+         transform: translate(-50%, -50%);
+     }
+    .first-visit-checkbox-group label {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: #555;
+        /* Use label's standard font size */
+        font-size: 15px;
+    }
+    .first-visit-checkbox-group span {
+        line-height: 1;
     }
 
-    .password-requirements { /* Kept for potential reuse */
-      font-size: 12px;
-      color: #888;
-      margin-top: 5px;
+    .signature-group {
+        margin-bottom: 20px;
     }
+    .canvas-container {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        position: relative;
+        cursor: crosshair;
+        overflow: hidden;
+    }
+    #signatureCanvas {
+        display: block;
+        width: 100%;
+        height: 150px;
+        background-color: #fdfdfd;
+    }
+    .clear-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+        color: #555;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    .clear-btn:hover {
+        background-color: #e0e0e0;
+    }
+    #signatureData {
+        display: none;
+    }
+    #sigError {
+        color: #D8000C;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+     .canvas-container.error-border {
+         border-color: #D8000C;
+     }
+     .error-message { /* Style for JS-added error messages */
+        color: #D8000C;
+        font-size: 12px;
+        margin-top: 4px;
+     }
+
 
     .button-primary {
       width: 100%;
@@ -118,88 +284,434 @@
       border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.2s ease;
-      margin-top: 10px; /* Add some space above the button */
+      margin-top: 15px;
     }
-
     .button-primary:hover {
       background-color: #E65C00;
     }
 
-    /* Styles for separator/secondary button kept commented out */
-    /*
-    .separator { ... }
-    .separator::before, .separator::after { ... }
-    .button-secondary { ... }
-    .button-secondary img { ... }
-    */
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
 
   </style>
 </head>
 <body>
 
+  <!-- ****** FIXED HEADER ****** -->
+  <header class="app-header">
+    <img src="dict logo.png" alt="Office Logo" class="logo"> <!-- Replace placeholder-logo.png -->
+    <div class="header-text">
+        <h3 class="office-name">Department of Information and Communications Technology</h3>
+        <p class="office-address">Surigao del Norte Provincial Office</p>
+    </div>
+  </header>
+  <!-- ****** END HEADER ****** -->
+
+
   <div class="container">
 
-    <h1>Create Account</h1>
+    <h2>Client Registration</h2>
+    <p class="subtitle">Please provide your details below</p>
 
-    <form>
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="fullName" placeholder="Enter Full Name">
-      </div>
+    <form id="registrationForm" action="#" method="POST" onsubmit="handleSubmit(event)">
 
-      <div class="form-group">
-        <label for="sex">Sex</label>
-        <input type="text" id="sex" name="sex" placeholder="Enter sex">
-      </div>
+        <!-- 1. Full Name -->
+        <div class="form-group">
+            <label for="fullName" class="form-label">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+        </div>
 
-      <div class="form-group">
-        <label for="age">Age</label>
-        <input type="text" id="age" name="age" placeholder="Enter Age">
-      </div>
+        <!-- 2. Sex -->
+        <div class="form-group">
+            <label for="sex" class="form-label">Sex <span class="required">*</span></label>
+            <select id="sex" name="sex" required>
+                <option value="" disabled selected>Select Sex</option> <!-- Placeholder text -->
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+        </div>
 
-      <div class="form-group">
-        <label for="rating">Experience Rating</label>
-        <input type="text" id="rating" name="rating" placeholder="Enter rating">
-      </div>
+        <!-- 3. Age -->
+        <div class="form-group">
+             <label for="age" class="form-label">Age <span class="required">*</span></label>
+             <input type="number" id="age" name="age" min="0" max="120" required placeholder="Enter your age">
+        </div>
 
-      <div class="form-group">
-        <label for="recommendation">Recommendations</label>
-        <input type="text" id="recommendation" name="recommendation" placeholder="Enter Recommendations">
-      </div>
-      <div class="form-group">
-        <label for="age">Age</label>
-        <input type="text" id="age" name="age" placeholder="Enter Age">
-      </div>
+        <!-- 4. Services Availed -->
+        <div class="form-group">
+            <label for="services_availed" class="form-label">Services Availed <span class="required">*</span></label>
+            <select id="services_availed" name="services_availed" required onchange="toggleOtherService(this.value)">
+                <option value="" disabled selected>Select service</option> <!-- Placeholder text -->
+                <option value="Free Wi-Fi for All (FW4A)">Free Wi-Fi for All (FW4A)</option>
+                <option value="Tech4ED-DTC Program">Tech4ED-DTC Program</option>
+                <option value="Cybersecurity Awareness and PNPKI Services">Cybersecurity Awareness and PNPKI Services</option>
+                <option value="ICT Training and Capacity Building">ICT Training and Capacity Building</option>
+                <option value="Government Network (GovNet) Connectivity">Government Network (GovNet) Connectivity</option>
+                <option value="Smart Villages, Smart Islands (SVSI) Initiative">Smart Villages, Smart Islands (SVSI) Initiative</option>
+                <option value="National Broadband Program (NBP)">National Broadband Program (NBP)</option>
+                <option value="DICT Digital Governance (eGov Services)">DICT Digital Governance (eGov Services)</option>
+                <option value="ICT Industry Development">ICT Industry Development</option>
+                <option value="Technical Support">Technical Support</option>
+                <option value="Others">Others</option>
+            </select>
+            <!-- 5. Other Service (Conditional) -->
+            <div id="other_service_div" class="mt-2 hidden">
+                <label for="other_service" class="visually-hidden">Other Service Specification</label>
+                <input type="text" id="other_service" name="other_service" placeholder="Please specify other service">
+                <p class="form-hint">Provide details if you selected "Others"</p>
+                 <div class="error-message"></div> <!-- Placeholder for JS error -->
+            </div>
+        </div>
 
-      <div class="form-group">
-        <label for="rating">Experience Rating</label>
-        <input type="text" id="rating" name="rating" placeholder="Enter rating">
-      </div>
+        <!-- 6. Sector -->
+         <div class="form-group">
+            <label for="sector" class="form-label">Sector <span class="required">*</span></label>
+            <select id="sector" name="sector" required>
+                <option value="" disabled selected>Select your sector</option> <!-- Placeholder text -->
+                <option value="Out-of-School Youth & Adults">Out-of-School Youth & Adults</option>
+                <option value="Educators">Educators</option>
+                <option value="Students">Students</option>
+                <option value="People with Disabilities">People with Disabilities</option>
+                <option value="Women">Women</option>
+                <option value="Senior Citizens">Senior Citizens</option>
+                <option value="Overseas Filipino Workers (OFWs) and Their Families/Relatives">Overseas Filipino Workers (OFWs) and Their Families/Relatives</option>
+                <option value="Entrepreneurs">Entrepreneurs</option>
+                <option value="Indigenous Peoples">Indigenous Peoples</option>
+                <option value="Farmers and Fisherfolk">Farmers and Fisherfolk</option>
+                <option value="Government Employees & Public Servants">Government Employees & Public Servants</option>
+                <option value="Micro, Small, and Medium Enterprises (MSMEs)">Micro, Small, and Medium Enterprises (MSMEs)</option>
+                <option value="Health Workers & Medical Professionals">Health Workers & Medical Professionals</option>
+                <option value="Transport & Logistics Workers">Transport & Logistics Workers</option>
+                <option value="Informal Workers & Daily Wage Earners">Informal Workers & Daily Wage Earners</option>
+            </select>
+         </div>
 
-      <div class="form-group">
-        <label for="recommendation">Recommendations</label>
-        <input type="text" id="recommendation" name="recommendation" placeholder="Enter Recommendations">
-      </div>
-      <button type="submit" class="button-primary">Sign Up</button>
+        <!-- 7. Experience Rating -->
+        <div class="form-group">
+             <label for="rating" class="form-label">Experience Rating <span class="required">*</span></label>
+             <select id="rating" name="rating" required>
+                 <option value="" disabled selected>Rate your experience</option> <!-- Placeholder text -->
+                 <option value="5">Excellent (5)</option>
+                 <option value="4">Very Good (4)</option>
+                 <option value="3">Good (3)</option>
+                 <option value="2">Fair (2)</option>
+                 <option value="1">Poor (1)</option>
+             </select>
+        </div>
+
+        <!-- 8. Recommendations/Comments -->
+        <div class="form-group">
+             <label for="recommendations" class="form-label">Recommendations/Comments</label>
+             <textarea id="recommendations" name="recommendations" rows="3" placeholder="Any suggestions or feedback? (Optional)"></textarea>
+        </div>
+
+         <!-- 10. First Time Visit -->
+        <div class="form-group first-visit-checkbox-group">
+            <label>
+                <input type="checkbox" name="is_first_visit" id="isFirstVisit" value="true">
+                <span>This is my first visit</span>
+            </label>
+        </div>
+
+        <!-- 9. Signature Data -->
+        <div class="form-group signature-group">
+            <label for="signatureCanvas" class="form-label">Signature <span class="required">*</span></label>
+            <div class="canvas-container" id="canvasContainer">
+               <canvas id="signatureCanvas"></canvas>
+            </div>
+             <button type="button" id="clearSignatureBtn" class="clear-btn">Clear Signature</button>
+             <input type="hidden" id="signatureData" name="signatureData">
+             <div id="sigError"></div> <!-- Placeholder for JS error -->
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="button-primary">Register Client</button>
+
     </form>
 
+  </div><!-- end .container -->
+
   <script>
-    function togglePasswordVisibility() {
-        var passwordInput = document.getElementById("password");
-        var passwordToggle = document.querySelector(".password-toggle");
-        var eyeIcon = passwordToggle.querySelector("i");
+    // --- Form Submission Handling ---
+    function handleSubmit(event) {
+        event.preventDefault();
 
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
+        let isValid = true;
+        const sigError = document.getElementById('sigError');
+        const canvasContainer = document.getElementById('canvasContainer');
+        const servicesSelect = document.getElementById('services_availed');
+        const otherServiceInput = document.getElementById('other_service');
+        const otherServiceGroup = otherServiceInput.closest('#other_service_div'); // Target the div containing the input
+        let otherServiceErrorMsg = otherServiceGroup.querySelector('.error-message');
 
+        // Clear previous errors first
+        sigError.textContent = '';
+        canvasContainer.classList.remove('error-border');
+        if(otherServiceErrorMsg) otherServiceErrorMsg.textContent = '';
+        otherServiceInput.style.borderColor = '#ddd';
+
+
+        // Capture signature before validation
+        if (!isCanvasBlank(document.getElementById('signatureCanvas'))) {
+             captureSignature();
+        }
+
+        // --- Start Validation ---
+
+        // Validate Signature
+        const signatureDataInput = document.getElementById('signatureData');
+        if (!signatureDataInput.value) {
+            sigError.textContent = 'Signature is required.';
+            canvasContainer.classList.add('error-border');
+            isValid = false;
+        }
+
+        // Validate 'Other Service' text input if 'Others' selected
+        if (servicesSelect.value === 'Others' && !otherServiceInput.value.trim()) {
+             if (!otherServiceErrorMsg) { // Should exist from load, but check anyway
+                 otherServiceErrorMsg = document.createElement('div');
+                 otherServiceErrorMsg.className = 'error-message';
+                 otherServiceGroup.appendChild(otherServiceErrorMsg);
+             }
+             otherServiceErrorMsg.textContent = 'Please specify the "Other Service".';
+             otherServiceInput.style.borderColor = '#D8000C';
+             isValid = false;
+        }
+
+        // --- Handle Validation Result ---
+        if (isValid) {
+            console.log('Form is valid. Submitting data (example)...');
+            const formData = new FormData(event.target);
+
+             formData.set('is_first_visit', document.getElementById('isFirstVisit').checked ? 'true' : 'false');
+
+             console.log("--- Form Data ---");
+             for (let [key, value] of formData.entries()) {
+                 if (key === 'signatureData' && value.length > 100) {
+                    console.log(key + ":", value.substring(0, 50) + "...");
+                 } else {
+                    console.log(key + ":", value);
+                 }
+             }
+             console.log("-----------------");
+
+             alert('Registration Submitted (Placeholder)! Check console for data.');
+             // event.target.reset();
+             // clearSignature();
+            // event.target.submit();
         } else {
-            passwordInput.type = "password";
-             eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
+             console.log('Form validation failed.');
+             // Scroll to the first error field
+             const firstErrorField = document.querySelector('.error-border, input[style*="border-color: rgb(216, 0, 12)"]'); // Find canvas border or input border
+             if (firstErrorField) {
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Try focusing input field if it's the one with the error
+                 if (firstErrorField.tagName === 'INPUT' || firstErrorField.tagName === 'SELECT' || firstErrorField.tagName === 'TEXTAREA'){
+                     firstErrorField.focus({ preventScroll: true }); // preventScroll helps if scrollIntoView already handled it
+                 }
+             }
         }
     }
+
+    // --- Conditional 'Other Service' Field ---
+    function toggleOtherService(selectedValue) {
+        const otherServiceDiv = document.getElementById('other_service_div');
+        const otherServiceInput = document.getElementById('other_service');
+        const otherServiceErrorMsg = otherServiceDiv.querySelector('.error-message');
+
+        if (selectedValue === 'Others') {
+            otherServiceDiv.classList.remove('hidden');
+            otherServiceInput.required = true;
+        } else {
+            otherServiceDiv.classList.add('hidden');
+            otherServiceInput.required = false;
+            otherServiceInput.value = '';
+            // Clear errors when hiding
+            if (otherServiceErrorMsg) otherServiceErrorMsg.textContent = '';
+            otherServiceInput.style.borderColor = '#ddd';
+        }
+    }
+
+    // --- Signature Pad Logic ---
+    const canvas = document.getElementById('signatureCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const clearButton = document.getElementById('clearSignatureBtn');
+    const signatureDataInput = document.getElementById('signatureData');
+    const sigError = document.getElementById('sigError');
+    const canvasContainer = document.getElementById('canvasContainer');
+
+    let drawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#333';
+
+    function resizeCanvas() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        // Ensure width is at least 1px to avoid errors
+        canvas.width = Math.max(1, rect.width);
+        canvas.height = 150;
+        // Re-apply context settings after resize
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#333';
+        // Optionally clear the canvas on resize, preserving error state
+        clearSignature(false);
+    }
+
+
+    function getMousePos(canvasDom, event) {
+        var rect = canvasDom.getBoundingClientRect();
+        return {
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top
+        };
+    }
+
+    function getTouchPos(canvasDom, touchEvent) {
+        var rect = canvasDom.getBoundingClientRect();
+        if (touchEvent.touches.length > 0) {
+             return {
+                x: touchEvent.touches[0].clientX - rect.left,
+                y: touchEvent.touches[0].clientY - rect.top
+             };
+        }
+        return {x: 0, y: 0}; // Fallback
+    }
+
+    function startDrawing(e) {
+        // Ensure canvas has valid dimensions before drawing
+        if (canvas.width <= 0 || canvas.height <= 0) {
+            console.warn("Canvas has zero dimensions, resizing...");
+            resizeCanvas(); // Attempt to resize if invalid
+             if (canvas.width <= 0 || canvas.height <= 0) {
+                 console.error("Cannot draw on zero-dimension canvas.");
+                 return; // Prevent drawing if still invalid
+             }
+        }
+
+        drawing = true;
+        const pos = (e.touches) ? getTouchPos(canvas, e) : getMousePos(canvas, e);
+        [lastX, lastY] = [pos.x, pos.y];
+        sigError.textContent = ''; // Clear signature error on new attempt
+        canvasContainer.classList.remove('error-border');
+        signatureDataInput.value = ''; // Clear hidden input value until drawing stops
+    }
+
+
+    function draw(e) {
+        if (!drawing) return;
+        e.preventDefault(); // Prevent scrolling while drawing
+        const pos = (e.touches) ? getTouchPos(canvas, e) : getMousePos(canvas, e);
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        [lastX, lastY] = [pos.x, pos.y];
+    }
+
+    function stopDrawing() {
+        if (drawing) {
+            drawing = false;
+            captureSignature(); // Capture signature data once drawing stops
+        }
+    }
+
+     function captureSignature() {
+        if (!isCanvasBlank(canvas)) {
+             try {
+                signatureDataInput.value = canvas.toDataURL('image/png');
+             } catch(e) {
+                 console.error("Error capturing signature:", e);
+                 // Handle error, maybe show message to user
+                 sigError.textContent = "Could not capture signature.";
+                 signatureDataInput.value = ''; // Ensure value is cleared on error
+             }
+        } else {
+             signatureDataInput.value = '';
+        }
+     }
+
+    function clearSignature(clearErrorState = true) {
+        // Check if context is valid before clearing
+        if(ctx) {
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        signatureDataInput.value = '';
+        if (clearErrorState) {
+             sigError.textContent = '';
+             canvasContainer.classList.remove('error-border');
+        }
+    }
+
+    function isCanvasBlank(canvasToCheck) {
+         // Check for 0 dimensions first
+         if (!canvasToCheck || canvasToCheck.width === 0 || canvasToCheck.height === 0) {
+             return true; // Consider it blank if dimensions are invalid
+         }
+         try {
+            const pixelBuffer = new Uint32Array(
+                ctx.getImageData(0, 0, canvasToCheck.width, canvasToCheck.height).data.buffer
+            );
+            // Check if *any* pixel has a non-zero value (faster than checking all are zero)
+            return !pixelBuffer.some(color => color !== 0);
+         } catch (e) {
+             // Security errors (tainted canvas) or other issues
+             console.error("Canvas inspection failed, using fallback check:", e);
+             // Fallback: compare to a blank canvas data URL (less reliable)
+              try {
+                  const blank = document.createElement('canvas');
+                  blank.width = canvasToCheck.width;
+                  blank.height = canvasToCheck.height;
+                  return canvasToCheck.toDataURL() === blank.toDataURL();
+              } catch (fallbackError) {
+                  console.error("Fallback canvas check also failed:", fallbackError);
+                  return true; // Assume blank if checks fail catastrophically
+              }
+         }
+    }
+
+    // --- Event Listeners ---
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing); // Stop if cursor leaves canvas while drawing
+
+    canvas.addEventListener('touchstart', startDrawing, { passive: false }); // Need preventDefault
+    canvas.addEventListener('touchmove', draw, { passive: false }); // Need preventDefault
+    canvas.addEventListener('touchend', stopDrawing);
+
+    clearButton.addEventListener('click', () => clearSignature(true)); // Clear drawing and errors
+
+    // --- Initial Setup ---
+    window.addEventListener('load', () => {
+         resizeCanvas(); // Ensure canvas is sized correctly on load
+         toggleOtherService(document.getElementById('services_availed').value); // Set initial state for 'Others' field
+
+         // Ensure error message div exists for 'Other Services'
+         const otherServiceDiv = document.getElementById('other_service_div');
+         if (!otherServiceDiv.querySelector('.error-message')) {
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            otherServiceDiv.appendChild(errorMsg);
+         }
+    });
+
+    // Adjust canvas size on window resize
+    window.addEventListener('resize', resizeCanvas);
+
   </script>
 
 </body>
