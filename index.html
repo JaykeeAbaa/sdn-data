@@ -9,30 +9,37 @@
     body {
       font-family: sans-serif;
       margin: 0;
-      padding: 0;
+      /* padding: 0; */ /* Remove or comment out */
+      padding: 20px; /* <<< ADDED: Creates space around the container */
       background-color: #f9f9f9;
       display: flex;
       justify-content: center;
-      align-items: center;
+      /* align-items: center; */ /* Remove or comment out */
+      align-items: flex-start; /* <<< CHANGED: Aligns container to top (within padding) */
       min-height: 100vh;
+      box-sizing: border-box; /* <<< ADDED: Include padding in body's total height */
     }
 
     .container {
-      width: 375px; /* Approximate mobile screen width */
+      /* width: 375px; */ /* Consider changing this */
+      width: 100%;       /* <<< RECOMMENDED CHANGE */
+      max-width: 375px;  /* <<< RECOMMENDED ADDITION: Limits width */
       background-color: #fff;
       border-radius: 12px; /* Rounded corners */
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-      padding: 20px;
+      padding: 25px 20px; /* <<< ADJUSTED: Slightly more vertical padding inside */
       box-sizing: border-box;
-      overflow: hidden; /* Ensure content stays within bounds */
+      /* overflow: hidden; */ /* Removed overflow:hidden to allow shadows/focus rings */
       position: relative;
     }
 
-    h1 {
+    h1 { /* Assuming you might reuse h1, styled it */
       font-size: 24px;
       font-weight: bold;
       color: #222;
-      margin-bottom: 30px;
+      margin-top: 0; /* Remove default top margin if padding handles it */
+      margin-bottom: 25px; /* Adjusted margin */
+      text-align: center; /* Center the heading */
     }
 
     .form-group {
@@ -43,12 +50,16 @@
       display: block;
       font-size: 14px;
       color: #555;
-      margin-bottom: 5px;
+      margin-bottom: 8px; /* Increased space */
     }
 
+    /* Unified style for input-like fields */
     input[type="text"],
-    input[type="sex"],
-    input[type="password"] {
+    /* input[type="sex"], */ /* input type="sex" is not standard HTML */
+    input[type="password"],
+    select, /* Added for potential future use */
+    textarea /* Added for potential future use */
+     {
       width: 100%;
       padding: 12px 15px;
       font-size: 16px;
@@ -56,19 +67,24 @@
       border-radius: 8px;
       box-sizing: border-box;
       outline: none; /* Remove default focus outline */
+      font-family: inherit; /* Ensure consistent font */
     }
 
-   input[type="text"].name-field{
+   /* Specific example removed as input type="sex" isn't standard
+    input[type="text"].name-field{
         border-color: #FF6600;
-    }
+    } */
 
     input[type="text"]:focus,
-    input[type="sex"]:focus,
-    input[type="password"]:focus {
+    /* input[type="sex"]:focus, */
+    input[type="password"]:focus,
+    select:focus, /* Added */
+    textarea:focus /* Added */
+    {
       border-color: #FF6600; /* Orange focus color */
     }
 
-    .password-container {
+    .password-container { /* Kept for potential reuse */
       position: relative;
     }
 
@@ -76,7 +92,7 @@
         padding-right: 40px; /* Make space for the eye icon */
     }
 
-    .password-toggle {
+    .password-toggle { /* Kept for potential reuse */
         position: absolute;
         right: 12px;
         top: 50%;
@@ -85,7 +101,7 @@
         color: #999;
     }
 
-    .password-requirements {
+    .password-requirements { /* Kept for potential reuse */
       font-size: 12px;
       color: #888;
       margin-top: 5px;
@@ -102,47 +118,20 @@
       border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      margin-top: 10px; /* Add some space above the button */
     }
 
     .button-primary:hover {
       background-color: #E65C00;
     }
 
-    .separator {
-      display: flex;
-      align-items: center;
-      margin: 20px 0;
-      text-align: center;
-      color: #888;
-    }
-
-    .separator::before,
-    .separator::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #ddd;
-      margin: 0 10px;
-    }
-
-    .button-secondary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      color: #333;
-      background-color: #f5f5f5;
-      border: 1px solid #ddd;
-      border-radius: 25px;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
-    .button-secondary img {
-      width: 20px;
-      margin-right: 10px;
-    }
+    /* Styles for separator/secondary button kept commented out */
+    /*
+    .separator { ... }
+    .separator::before, .separator::after { ... }
+    .button-secondary { ... }
+    .button-secondary img { ... }
+    */
 
   </style>
 </head>
