@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Successful</title>
+  <!-- Optional: Add Font Awesome if you plan to use icons here later -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <style>
+    /* --- Base & Existing Styles (Copied & Adapted) --- */
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      padding-top: 85px; /* Offset fixed header */
+      min-height: 100vh;
+      box-sizing: border-box;
+      display: flex; /* Helps center container vertically if needed */
+      align-items: flex-start; /* Align container to top */
+      justify-content: center; /* Center container horizontally */
+    }
+
+    /* --- HEADER STYLES (Exact Copy) --- */
+    .app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100%;
+        background-color: #fff;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        height: 85px;
+    }
+
+    .logo {
+        height: 55px;
+        width: auto;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .header-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .office-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #222;
+        margin: 0 0 4px 0;
+    }
+
+    .office-address {
+        font-size: 13px;
+        color: #666;
+        margin: 0;
+        line-height: 1.4;
+    }
+    /* --- END HEADER STYLES --- */
+
+    /* --- Container Style (Adapted) --- */
+    .container {
+      width: 100%;
+      max-width: 450px; /* Slightly wider if desired */
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.09); /* Slightly softer shadow */
+      padding: 30px 30px 35px 30px; /* More padding */
+      box-sizing: border-box;
+      position: relative;
+      margin: 40px auto; /* More top margin */
+      text-align: center;
+    }
+
+    /* --- Success Confirmation Styles (NEW & Adapted) --- */
+    .success-confirmation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .success-heading {
+        font-size: 26px; /* Larger heading */
+        font-weight: bold;
+        color: #3C763D; /* Darker Green */
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    .success-details {
+        font-size: 16px; /* Slightly larger details text */
+        color: #555;
+        margin-bottom: 25px;
+    }
+
+    /* Animated Checkmark SVG Styles (Exact Copy from previous) */
+    .checkmark-svg {
+      width: 70px; /* Slightly larger checkmark */
+      height: 70px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2.5; /* Slightly thicker */
+      stroke: #4CAF50;
+      stroke-miterlimit: 10;
+      margin: 10px auto 20px auto; /* Adjust margin */
+      box-shadow: inset 0px 0px 0px #4CAF50;
+      animation: scale .3s ease-in-out .9s both, fill .4s ease-in-out .9s both;
+    }
+
+    .checkmark__circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2.5;
+      stroke-miterlimit: 10;
+      stroke: #4CAF50;
+      fill: none;
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark__check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @keyframes stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes scale {
+      0%, 100% {
+        transform: none;
+      }
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+
+    @keyframes fill {
+      100% {
+        box-shadow: inset 0px 0px 0px 40px #4CAF50; /* Adjust fill size */
+      }
+    }
+    /* --- End Checkmark Styles --- */
+
+
+    /* Data Collection Notice Styles (Exact Copy from previous) */
+    .data-collection-notice {
+        font-size: 12px;
+        color: #777;
+        margin-top: 25px; /* More space above notice */
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+        line-height: 1.6; /* Slightly more line spacing */
+        text-align: left;
+    }
+    .data-collection-notice strong {
+       color: #555;
+       font-weight: 600; /* Make bold slightly stronger */
+    }
+
+    /* --- Button Style (Exact Copy from form) --- */
+    .button-primary {
+      display: inline-block; /* Allow centering */
+      width: auto; /* Fit content */
+      padding: 12px 25px; /* Adjust padding */
+      font-size: 15px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #FF6600;
+      border: none;
+      border-radius: 8px; /* Slightly less rounded */
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      margin-top: 30px; /* Space above button */
+      text-decoration: none; /* Remove underline if used as link */
+    }
+    .button-primary:hover {
+      background-color: #E65C00;
+      transform: translateY(-1px); /* Subtle lift on hover */
+    }
+    .button-primary:active {
+        transform: translateY(0px); /* Press down effect */
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ****** FIXED HEADER ****** -->
+  <header class="app-header">
+    <!-- Make sure the logo path is correct relative to success.html -->
+    <img src="dict logo.png" alt="Office Logo" class="logo"> <!-- UPDATE logo path if needed -->
+    <div class="header-text">
+        <h3 class="office-name">Department of Information and Communications Technology</h3>
+        <p class="office-address">Surigao del Norte Provincial Office</p>
+    </div>
+  </header>
+  <!-- ****** END HEADER ****** -->
+
+  <div class="container">
+    <div class="success-confirmation">
+
+        <!-- Animated Checkmark -->
+        <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+
+        <!-- Success Message -->
+        <h2 class="success-heading">Registration Successful!</h2>
+        <p class="success-details">Thank you, your information has been recorded.</p>
+
+        <!-- Data Collection Notice -->
+        <div class="data-collection-notice">
+            <strong>Data Collection Notice:</strong> The information you provide (excluding signature image data unless explicitly needed for verification) is collected solely for the purpose of recording client interactions and service usage for reporting and improvement within the DICT Surigao del Norte Provincial Office. Your data is treated confidentially and stored securely. It will not be shared with third parties without your consent, except as required by law.
+        </div>
+
+        <!-- Button to Go Back -->
+        <a href="index.html" class="button-primary">Register Another Client</a> <!-- Link back to your form page -->
+
+    </div>
+  </div>
+
+  <!-- No custom JavaScript needed for this page unless adding more dynamic features -->
+
+</body>
+</html>
