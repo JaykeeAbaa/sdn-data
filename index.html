@@ -3,355 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Registration</title>
+  <title>Visitors Registration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /* --- Styles from previous index.html (ensure these are complete) --- */
+    :root { /* Define colors for consistency */
+        --brand-color: #f97316; /* Orange 500 */
+        --brand-color-dark: #ea580c; /* Orange 600 */
+        --brand-color-focus-ring: rgba(249, 115, 22, 0.3);
+        --brand-color-disabled: #fdba74; /* Orange 300 */
+        --text-color-primary: #1f2937; /* Gray 800 */
+        --text-color-secondary: #374151; /* Gray 700 */
+        --text-color-placeholder: #9ca3af; /* Gray 400 */
+        --text-color-label: #374151; /* Gray 700 */
+        --text-color-hint: #6b7280; /* Gray 500 */
+        --text-color-error: #ef4444; /* Red 500 */
+        --text-color-button: #ffffff;
+        --bg-color-light: #f9fafb;
+        --bg-color-white: #ffffff;
+        --bg-color-canvas: #f9fafb;
+        --bg-color-error-light: #fee2e2; /* Red 100 */
+        --bg-color-submitting-light: #f3f4f6; /* Gray 100 */
+        --border-color: #d1d5db; /* Gray 300 */
+        --border-color-medium: #e5e7eb; /* Gray 200 */
+        --border-color-error: #ef4444; /* Red 500 */
+        --border-color-focus: #f97316; /* Orange 500 */
+        --header-height: 85px;
+    }
+
+    /* --- Base Styles --- */
+    *, *::before, *::after {
+        box-sizing: border-box; /* Apply box-sizing globally */
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Match success page font */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       margin: 0;
-      background-color: #f9fafb; /* Match success page background */
-      padding-top: 85px; /* Adjust based on header height */
+      background-color: var(--bg-color-light);
+      padding-top: var(--header-height); /* Offset fixed header */
+      /* Add overall padding for spacing from screen edges */
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 30px; /* Space at the bottom */
       min-height: 100vh;
-      box-sizing: border-box;
     }
 
-    /* --- HEADER STYLES (Match success page) --- */
+    /* --- Header Styles --- */
     .app-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        width: 100%;
-        background-color: #ffffff;
-        padding: 15px 20px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-        height: 85px;
-        border-bottom: 1px solid #e5e7eb;
+        position: fixed; top: 0; left: 0; z-index: 100; width: 100%;
+        background-color: var(--bg-color-white);
+        /* Adjusted header padding for consistency */
+        padding: 15px max(15px, env(safe-area-inset-left)) 15px max(15px, env(safe-area-inset-right));
+        box-sizing: border-box; display: flex; align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06); height: var(--header-height);
+        border-bottom: 1px solid var(--border-color-medium);
     }
+    .logo { height: 55px; width: auto; margin-right: 15px; flex-shrink: 0; }
+    .header-text { display: flex; flex-direction: column; }
+    .office-name { font-size: 16px; font-weight: 600; color: var(--text-color-primary); margin: 0 0 4px 0; }
+    .office-address { font-size: 13px; color: var(--text-color-secondary); margin: 0; line-height: 1.4; }
+    /* --- END HEADER --- */
 
-    .logo {
-        height: 65px;
-        width: auto;
-        margin-right: 15px;
-        flex-shrink: 0;
-    }
-
-    .header-text {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .office-name {
-        font-size: 17px;
-        font-weight: 600;
-        color: #1f2937;
-        margin: 0 0 4px 0;
-    }
-
-    .office-address {
-        font-size: 13px;
-        color: #6b7280;
-        margin: 0;
-        line-height: 1.4;
-    }
-    /* --- END HEADER STYLES --- */
-
-    /* --- FORM CONTAINER STYLES (Match success page container but maybe narrower) --- */
+    /* --- Container Styles --- */
     .container {
-      width: 100%;
-      max-width: 450px; /* Slightly wider than original, adjust if needed */
-      background-color: #ffffff;
-      border-radius: 10px;
+      width: 100%; /* Takes full width available in body padding */
+      max-width: 480px; /* Max width for larger screens */
+      background-color: var(--bg-color-white); border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 25px 30px 30px 30px; /* Adjust padding */
-      box-sizing: border-box;
+      /* Padding inside the container */
+      padding: 25px 20px 30px 20px; /* Reduced horizontal padding slightly */
       position: relative;
-      margin: 30px auto; /* Adjust margin */
-      border: 1px solid #e5e7eb;
+      /* Margin controls space outside container (top/bottom/centering) */
+      margin: 30px auto 0 auto; /* Add top margin, center horizontally, no bottom needed due to body padding */
+      border: 1px solid var(--border-color-medium);
     }
+    /* Adjust container padding on smaller screens if needed */
+    @media (min-width: 500px) {
+        .container {
+            padding: 30px 30px 35px 30px; /* Restore larger padding on wider screens */
+        }
+    }
+
 
      h2 { /* Form title */
-      font-size: 24px;
-      font-weight: 600; /* Semibold */
-      color: #111827; /* Gray 900 */
-      margin-top: 0;
-      margin-bottom: 8px;
-      text-align: center;
+      font-size: 24px; font-weight: 600; color: var(--text-color-primary);
+      margin-top: 0; margin-bottom: 8px; text-align: center;
     }
-
     .subtitle {
-        font-size: 15px;
-        color: #6b7280; /* Gray 500 */
-        margin-bottom: 30px;
-        text-align: center;
+        font-size: 15px; color: var(--text-color-hint); margin-bottom: 30px; text-align: center;
     }
 
-    /* --- FORM ELEMENT STYLES (Refined) --- */
-    .form-group {
-      margin-bottom: 22px; /* Slightly more space */
-    }
+    /* --- Form Element Styles --- */
+    .form-group { margin-bottom: 20px; } /* Slightly reduced bottom margin */
 
     label, .form-label {
-      display: block;
-      font-size: 14px; /* Slightly smaller label */
-      font-weight: 500; /* Medium weight */
-      color: #374151; /* Gray 700 */
-      margin-bottom: 6px; /* Less space below label */
+      display: block; font-size: 14px; font-weight: 500;
+      color: var(--text-color-label); margin-bottom: 6px;
     }
+    .required { color: var(--text-color-error); margin-left: 3px; font-weight: 500; }
 
-    .required {
-        color: #ef4444; /* Tailwind Red 500 */
-        margin-left: 3px;
-        font-weight: 500;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px 12px; /* Adjusted padding */
-      font-size: 16px;
-      border: 1px solid #d1d5db; /* Gray 300 */
-      border-radius: 6px; /* Standard border radius */
-      box-sizing: border-box;
-      outline: none;
-      background-color: #ffffff;
-      color: #111827; /* Gray 900 */
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      font-family: inherit;
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%; padding: 10px 12px; font-size: 16px;
+      border: 1px solid var(--border-color); border-radius: 6px;
+      outline: none; background-color: var(--bg-color-white); color: var(--text-color-primary);
+      appearance: none; -webkit-appearance: none; -moz-appearance: none; font-family: inherit;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #f97316; /* Orange 500 */
-      box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3); /* Focus ring */
+    input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+      border-color: var(--border-color-focus);
+      box-shadow: 0 0 0 2px var(--brand-color-focus-ring);
     }
-
-    input::placeholder,
-    textarea::placeholder {
-        color: #9ca3af; /* Gray 400 */
-        font-size: 15px; /* Slightly smaller placeholder */
-        opacity: 1; /* Ensure visible */
-    }
+    input::placeholder, textarea::placeholder { color: var(--text-color-placeholder); font-size: 15px; opacity: 1; }
 
     select {
-        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%236b7280%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%20/%3E%3C/svg%3E'); /* Tailwind style chevron */
-        background-position: right 0.75rem center;
-        background-repeat: no-repeat;
-        background-size: 1.25em 1.25em;
-        padding-right: 2.5rem; /* Space for chevron */
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%236b7280%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%20/%3E%3C/svg%3E');
+        background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em; padding-right: 2.5rem;
     }
-    select:required:invalid {
-      color: #9ca3af; /* Gray 400 for placeholder */
-    }
-     select option[value=""][disabled] {
-      display: none;
-    }
-     select option {
-      color: #111827; /* Ensure options are dark */
-    }
+    select:required:invalid { color: var(--text-color-placeholder); }
+    select option[value=""][disabled] { display: none; }
+    select option { color: var(--text-color-primary); }
 
-    textarea {
-        resize: vertical;
-        min-height: 90px;
-    }
+    textarea { resize: vertical; min-height: 90px; }
 
     .hidden { display: none; }
     .mt-2 { margin-top: 10px; }
-    .form-hint { font-size: 12px; color: #6b7280; margin-top: 4px; }
+    .form-hint { font-size: 12px; color: var(--text-color-hint); margin-top: 4px; }
 
     /* Checkbox Group */
-    .first-visit-checkbox-group {
-        display: flex;
-        align-items: center;
-        margin-top: 5px;
-        margin-bottom: 25px;
-    }
+    .first-visit-checkbox-group { display: flex; align-items: center; margin-top: 5px; margin-bottom: 25px; }
     .first-visit-checkbox-group input[type="checkbox"] {
-        height: 1em; /* Relative size */
-        width: 1em;
-        margin-right: 0.6em;
-        border-radius: 3px;
-        border: 1px solid #d1d5db;
-        cursor: pointer;
-        accent-color: #f97316; /* Use accent-color for modern browsers */
-        flex-shrink: 0;
-         /* Basic styling for browsers not supporting accent-color well */
-         appearance: none;
-         -webkit-appearance: none;
-         -moz-appearance: none;
-         position: relative;
-         top: 1px;
-         background-color: #fff;
+        height: 1em; width: 1em; margin-right: 0.6em; border-radius: 3px;
+        border: 1px solid var(--border-color); cursor: pointer; accent-color: var(--brand-color);
+        flex-shrink: 0; appearance: none; -webkit-appearance: none; -moz-appearance: none;
+        position: relative; top: 1px; background-color: #fff;
     }
-    .first-visit-checkbox-group input[type="checkbox"]:checked {
-         background-color: #f97316;
-         border-color: #f97316;
+    .first-visit-checkbox-group input[type="checkbox"]:checked { background-color: var(--brand-color); border-color: var(--brand-color); }
+    .first-visit-checkbox-group input[type="checkbox"]:checked::before {
+         content: '\2714'; font-size: 0.8em; color: white; position: absolute;
+         left: 50%; top: 50%; transform: translate(-50%, -50%); line-height: 1;
     }
-     .first-visit-checkbox-group input[type="checkbox"]:checked::before {
-         content: '\2714'; /* Checkmark */
-         font-size: 0.8em;
-         color: white;
-         position: absolute;
-         left: 50%;
-         top: 50%;
-         transform: translate(-50%, -50%);
-         line-height: 1;
-     }
-     .first-visit-checkbox-group input[type="checkbox"]:focus {
-        box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3); /* Focus ring */
-        border-color: #f97316;
-     }
-
-    .first-visit-checkbox-group label {
-        margin-bottom: 0;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        color: #374151;
-        font-size: 14px; /* Match labels */
-        font-weight: 500;
-    }
+    .first-visit-checkbox-group input[type="checkbox"]:focus { box-shadow: 0 0 0 2px var(--brand-color-focus-ring); border-color: var(--border-color-focus); }
+    .first-visit-checkbox-group label { margin-bottom: 0; display: flex; align-items: center; cursor: pointer; color: var(--text-color-secondary); font-size: 14px; font-weight: 500; }
     .first-visit-checkbox-group span { line-height: 1; }
 
     /* Signature Area */
     .signature-group { margin-bottom: 22px; }
     .canvas-container {
-        border: 1px solid #d1d5db;
-        border-radius: 6px;
-        margin-bottom: 10px;
-        position: relative;
-        cursor: crosshair;
-        overflow: hidden;
-        line-height: 0;
-        background-color: #f9fafb; /* Light background for canvas */
+        border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 10px; position: relative;
+        cursor: crosshair; overflow: hidden; line-height: 0; background-color: var(--bg-color-canvas);
     }
-    #signatureCanvas {
-        display: block;
-        width: 100%;
-        height: 150px;
-        background-color: transparent; /* Use container background */
-    }
+    #signatureCanvas { display: block; width: 100%; height: 150px; background-color: transparent; }
     .clear-btn {
-        padding: 6px 12px; /* Smaller clear button */
-        font-size: 13px;
-        color: #4b5563; /* Gray 600 */
-        background-color: #f3f4f6; /* Gray 100 */
-        border: 1px solid #e5e7eb; /* Gray 200 */
-        border-radius: 5px;
-        cursor: pointer;
+        padding: 6px 12px; font-size: 13px; color: var(--text-color-secondary); background-color: var(--bg-color-submitting-light);
+        border: 1px solid var(--border-color-medium); border-radius: 5px; cursor: pointer;
         transition: background-color 0.2s ease, border-color 0.2s ease;
     }
-    .clear-btn:hover {
-        background-color: #e5e7eb; /* Gray 200 */
-        border-color: #d1d5db; /* Gray 300 */
-    }
+    .clear-btn:hover { background-color: var(--border-color-medium); border-color: var(--border-color); }
     #signatureData { display: none; }
-    #sigError { color: #ef4444; font-size: 12px; margin-top: 5px; min-height: 15px; }
+    #sigError { color: var(--text-color-error); font-size: 12px; margin-top: 5px; min-height: 15px; }
 
      /* Error Styling */
-     .canvas-container.error-border,
-     input.error-border,
-     select.error-border,
-     textarea.error-border {
-         border-color: #ef4444 !important; /* Red 500 */
-         box-shadow: 0 0 0 1px #ef4444 !important; /* Ensure focus shadow is overridden */
+     input.error-border, select.error-border, textarea.error-border {
+         border-color: var(--border-color-error) !important;
+         box-shadow: 0 0 0 1px var(--border-color-error) !important;
      }
-     .error-message { color: #ef4444; font-size: 12px; margin-top: 4px; min-height: 15px; }
+     .error-message { color: var(--text-color-error); font-size: 12px; margin-top: 4px; min-height: 15px; }
 
 
-    /* --- BUTTON STYLE (Match success page) --- */
+    /* --- Button Style --- */
     .button-primary {
-      width: 100%; /* Full width for form submit */
-      padding: 12px 20px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-      background-color: #f97316; /* Tailwind Orange 500 */
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-      margin-top: 15px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      width: 100%; padding: 12px 20px; font-size: 16px; font-weight: 600;
+      color: var(--text-color-button); background-color: var(--brand-color); border: none; border-radius: 8px;
+      cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      margin-top: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
     }
-    .button-primary:hover {
-      background-color: #ea580c; /* Tailwind Orange 600 */
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
-    }
-     .button-primary:active {
-        transform: translateY(0px);
-        background-color: #c2410c; /* Tailwind Orange 700 */
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-    }
-    .button-primary:disabled {
-        background-color: #fdba74; /* Tailwind Orange 300 */
-        cursor: wait;
-        opacity: 0.7;
-        transform: none;
-        box-shadow: none;
-    }
+    .button-primary:hover { background-color: var(--brand-color-dark); transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06); }
+    .button-primary:active { transform: translateY(0px); background-color: #c2410c; box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); }
+    .button-primary:disabled { background-color: var(--brand-color-disabled); cursor: wait; opacity: 0.7; transform: none; box-shadow: none; }
 
-    /* --- STATUS MESSAGE STYLING (For errors / submitting) --- */
+    /* --- Status Message Styling --- */
     #formStatus {
-        margin-top: 15px;
-        text-align: center;
-        font-weight: 500;
-        min-height: 20px;
-        padding: 10px 15px;
-        border-radius: 6px;
+        margin-top: 15px; text-align: center; font-weight: 500; min-height: 20px;
+        padding: 10px 15px; border-radius: 6px;
     }
-    #formStatus.error {
-        color: #dc2626; /* Red 600 */
-        background-color: #fee2e2; /* Red 100 */
-        border: 1px solid #fca5a5; /* Red 300 */
-    }
-    #formStatus.submitting {
-        color: #4b5563; /* Gray 600 */
-        background-color: #f3f4f6; /* Gray 100 */
-        border: 1px solid #e5e7eb; /* Gray 200 */
-    }
+    #formStatus.error { color: #dc2626; background-color: var(--bg-color-error-light); border: 1px solid #fca5a5; }
+    #formStatus.submitting { color: var(--text-color-secondary); background-color: var(--bg-color-submitting-light); border: 1px solid var(--border-color-medium); }
 
   </style>
 </head>
 <body>
 
-  <!-- ****** FIXED HEADER ****** -->
+  <!-- Header -->
   <header class="app-header">
-    <img src="dict logo.png" alt="Office Logo" class="logo"> <!-- UPDATE path if needed -->
+    <img src="dict logo.png" alt="Office Logo" class="logo">
     <div class="header-text">
         <h3 class="office-name">Department of Information and Communications Technology</h3>
         <p class="office-address">Surigao del Norte Provincial Office</p>
     </div>
   </header>
-  <!-- ****** END HEADER ****** -->
 
-
+  <!-- Main Content Container -->
   <div class="container">
-
-    <h2>Client Registration</h2>
-    <p class="subtitle">Please provide your details below</p>
+    <h2>Visitors Registration</h2>
+    <p class="subtitle">Please fill out the visitor information form</p>
 
     <form id="registrationForm" onsubmit="return handleSubmit(event)">
-
-        <!-- Form Fields (Keep structure as before) -->
+        <!-- Form fields remain exactly the same as previous version -->
         <!-- 1. Full Name -->
         <div class="form-group">
             <label for="fullName" class="form-label">Full Name <span class="required">*</span></label>
             <input type="text" id="fullName" name="fullName" required placeholder="Juan Dela Cruz">
             <div class="error-message"></div>
         </div>
-
         <!-- 2. Sex -->
         <div class="form-group">
             <label for="sex" class="form-label">Sex <span class="required">*</span></label>
@@ -363,14 +225,12 @@
             </select>
              <div class="error-message"></div>
         </div>
-
         <!-- 3. Age -->
         <div class="form-group">
              <label for="age" class="form-label">Age <span class="required">*</span></label>
              <input type="number" id="age" name="age" min="1" max="120" required placeholder="Enter your age">
              <div class="error-message"></div>
         </div>
-
         <!-- 4. Services Availed -->
         <div class="form-group">
             <label for="services_availed" class="form-label">Services Availed <span class="required">*</span></label>
@@ -391,13 +251,12 @@
              <div class="error-message"></div>
             <!-- 5. Other Service (Conditional) -->
             <div id="other_service_div" class="mt-2 hidden">
-                <label for="other_service" class="visually-hidden">Other Service Specification</label> <!-- Visually hidden label for accessibility -->
+                <label for="other_service" class="visually-hidden">Other Service Specification</label>
                 <input type="text" id="other_service" name="other_service" placeholder="Please specify other service">
                 <p class="form-hint">Provide details if you selected "Others"</p>
                  <div class="error-message"></div>
             </div>
         </div>
-
         <!-- 6. Sector -->
          <div class="form-group">
             <label for="sector" class="form-label">Sector <span class="required">*</span></label>
@@ -421,7 +280,6 @@
             </select>
              <div class="error-message"></div>
          </div>
-
         <!-- 7. Experience Rating -->
         <div class="form-group">
              <label for="rating" class="form-label">Experience Rating <span class="required">*</span></label>
@@ -435,26 +293,21 @@
              </select>
               <div class="error-message"></div>
         </div>
-
         <!-- 8. Recommendations/Comments -->
         <div class="form-group">
              <label for="recommendations" class="form-label">Recommendations/Comments</label>
              <textarea id="recommendations" name="recommendations" rows="3" placeholder="Any suggestions or feedback? (Optional)"></textarea>
-             <!-- No error message needed -->
         </div>
-
          <!-- 10. First Time Visit -->
         <div class="form-group first-visit-checkbox-group">
-             <!-- Label wraps input for better clickability -->
             <label for="isFirstVisit">
                 <input type="checkbox" name="is_first_visit" id="isFirstVisit" value="true">
                 <span>This is my first visit</span>
             </label>
         </div>
-
-        <!-- 9. Signature Data -->
+        <!-- 9. Signature Data (Optional) -->
         <div class="form-group signature-group">
-            <label for="signatureCanvas" class="form-label">Signature <span class="required">*</span></label>
+            <label for="signatureCanvas" class="form-label">Signature</label>
             <div class="canvas-container" id="canvasContainer">
                <canvas id="signatureCanvas"></canvas>
             </div>
@@ -462,22 +315,17 @@
              <input type="hidden" id="signatureData" name="signatureData">
              <div id="sigError"></div>
         </div>
-        <!-- End Form Fields -->
-
         <!-- Submit Button -->
-        <button type="submit" id="submitButton" class="button-primary">Register Client</button>
-
-        <!-- Status Message Area (for errors / submitting state) -->
+        <button type="submit" id="submitButton" class="button-primary">Register Visitor</button> <!-- Updated Button Text -->
+        <!-- Status Message Area -->
         <div id="formStatus"></div>
-
     </form>
-
   </div><!-- end .container -->
 
-  <!-- 1. INCLUDE SIGNATURE PAD LIBRARY -->
+  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
-  <!-- 2. CUSTOM JAVASCRIPT -->
+  <!-- Custom Script (JavaScript remains exactly the same as previous version where signature was made optional) -->
   <script>
     // --- DOM Elements ---
     const form = document.getElementById('registrationForm');
@@ -485,15 +333,12 @@
     const otherServiceDiv = document.getElementById('other_service_div');
     const otherServiceInput = document.getElementById('other_service');
     const canvas = document.getElementById('signatureCanvas');
-    // Initialize SignaturePad safely
     let signaturePad = null;
     if (canvas) {
         signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(249, 250, 251)' // Match canvas container bg color
+            backgroundColor: 'rgb(249, 250, 251)'
         });
-    } else {
-        console.error("Signature canvas element not found!");
-    }
+    } else { console.error("Signature canvas element not found!"); }
     const clearButton = document.getElementById('clearSignatureBtn');
     const signatureDataInput = document.getElementById('signatureData');
     const sigErrorDiv = document.getElementById('sigError');
@@ -501,108 +346,58 @@
     const submitButton = document.getElementById('submitButton');
     const formStatusDiv = document.getElementById('formStatus');
 
-    // --- CONFIGURATION: Google Apps Script Web App URL ---
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbww5IncijGSykMP2tFHo8BDL2j7Cldq98VWc-QUzkpNx7t4iobSs7GscBQj7b1AJleN/exec'; // Your specific URL
-    const SUCCESS_PAGE_URL = 'success.html'; // Filename of your success page
-    // --------------------------------------------------
+    // --- CONFIGURATION ---
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbww5IncijGSykMP2tFHo8BDL2j7Cldq98VWc-QUzkpNx7t4iobSs7GscBQj7b1AJleN/exec';
+    const SUCCESS_PAGE_URL = 'success.html';
+    // --- END CONFIGURATION ---
 
-    // Basic check if URL seems valid
+    // Basic URL Check
     if (!SCRIPT_URL || !SCRIPT_URL.startsWith('https://script.google.com/macros/s/')) {
-        console.error("Configuration Error: The SCRIPT_URL seems invalid or is missing.");
-        alert("Configuration Error: Script URL is missing or invalid. Form submission disabled.");
+        console.error("Configuration Error: Invalid SCRIPT_URL.");
+        alert("Configuration Error. Form submission disabled.");
         if(submitButton) submitButton.disabled = true;
-        if(formStatusDiv) {
-            formStatusDiv.textContent = 'Configuration error: Invalid Script URL.';
-            formStatusDiv.className = 'error';
-        }
+        if(formStatusDiv) { formStatusDiv.textContent = 'Config error.'; formStatusDiv.className = 'error'; }
     }
 
-    // --- Helper: Debounce function ---
+    // --- Helper Functions (debounce, resizeCanvas, showError, clearError, clearAllErrors) ---
     function debounce(func, wait = 250, immediate = false) {
         let timeout;
         return function() {
             const context = this, args = arguments;
-            const later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
+            const later = function() { timeout = null; if (!immediate) func.apply(context, args); };
             const callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
+            clearTimeout(timeout); timeout = setTimeout(later, wait);
             if (callNow) func.apply(context, args);
         };
-    }
-
-    // --- Helper: Adjust canvas size ---
+     }
     function resizeCanvas() {
         if (!canvas || !signaturePad) return;
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        // Save drawing data only if not empty
         const currentData = signaturePad.isEmpty() ? null : signaturePad.toDataURL();
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
+        canvas.width = canvas.offsetWidth * ratio; canvas.height = canvas.offsetHeight * ratio;
         canvas.getContext("2d").scale(ratio, ratio);
-        // Restore drawing if it existed
-        if (currentData) {
-            signaturePad.fromDataURL(currentData);
-        } else {
-            signaturePad.clear(); // Ensure background color is reapplied if cleared
-        }
-        clearSignatureError();
-    }
-
-    // --- Helper: Show/Hide Validation Error ---
+        if (currentData) { signaturePad.fromDataURL(currentData); } else { signaturePad.clear(); }
+     }
      function showError(inputElement, message) {
-        const errorDiv = inputElement && inputElement.id === 'signatureCanvas'
-            ? sigErrorDiv
-            : (inputElement && inputElement.parentElement ? inputElement.parentElement.querySelector('.error-message') : null);
-
-        if (errorDiv) {
-            errorDiv.textContent = message;
-        }
-        if (inputElement && inputElement.id === 'signatureCanvas') {
-             if(canvasContainer) canvasContainer.classList.add('error-border');
-        } else if (inputElement) {
-             inputElement.classList.add('error-border');
-        }
-    }
-
+        const errorDiv = inputElement?.id === 'signatureCanvas' ? sigErrorDiv : inputElement?.parentElement?.querySelector('.error-message');
+        if (errorDiv) { errorDiv.textContent = message; }
+        if (inputElement && inputElement.id !== 'signatureCanvas') { inputElement.classList.add('error-border'); }
+      }
     function clearError(inputElement) {
-         const errorDiv = inputElement && inputElement.id === 'signatureCanvas'
-            ? sigErrorDiv
-            : (inputElement && inputElement.parentElement ? inputElement.parentElement.querySelector('.error-message') : null);
-
-         if (errorDiv) {
-             errorDiv.textContent = '';
-         }
-         if (inputElement && inputElement.id === 'signatureCanvas') {
-             if(canvasContainer) canvasContainer.classList.remove('error-border');
-         } else if (inputElement) {
-             inputElement.classList.remove('error-border');
-         }
-    }
-
-     function clearSignatureError() {
-         if(canvasContainer) canvasContainer.classList.remove('error-border');
-         if(sigErrorDiv) sigErrorDiv.textContent = '';
+         const errorDiv = inputElement?.id === 'signatureCanvas' ? sigErrorDiv : inputElement?.parentElement?.querySelector('.error-message');
+         if (errorDiv) { errorDiv.textContent = ''; }
+         if (inputElement && inputElement.id !== 'signatureCanvas') { inputElement.classList.remove('error-border'); }
      }
-
+     function clearSignatureError() { if(sigErrorDiv) sigErrorDiv.textContent = ''; }
      function clearAllErrors() {
-         // Clear text and borders from form fields
-         const errorMessages = form.querySelectorAll('.error-message, #sigError');
-         errorMessages.forEach(el => el.textContent = '');
-         const errorBorders = form.querySelectorAll('.error-border');
-         errorBorders.forEach(el => el.classList.remove('error-border'));
-         // Clear the main status message area
-         if(formStatusDiv) {
-             formStatusDiv.textContent = '';
-             formStatusDiv.className = ''; // Remove error/submitting classes
-         }
+         form.querySelectorAll('.error-message, #sigError').forEach(el => el.textContent = '');
+         form.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
+         if(formStatusDiv) { formStatusDiv.textContent = ''; formStatusDiv.className = ''; }
      }
+    // --- End Helper Functions ---
 
     // --- Event Listeners ---
     window.addEventListener("resize", debounce(resizeCanvas));
-
     if(clearButton && signaturePad) {
         clearButton.addEventListener('click', () => {
             signaturePad.clear();
@@ -610,11 +405,7 @@
             clearSignatureError();
         });
     }
-
-     if(canvas && signaturePad) {
-         canvas.addEventListener('pointerdown', () => clearSignatureError());
-         canvas.addEventListener('touchstart', () => clearSignatureError(), { passive: true });
-     }
+    // No listeners needed for canvas interaction regarding errors anymore
 
     // --- Toggle "Other Service" field ---
     function toggleOtherService() {
@@ -622,76 +413,52 @@
         const isOther = servicesSelect.value === 'Others';
         otherServiceDiv.classList.toggle('hidden', !isOther);
         otherServiceInput.required = isOther;
-        if (!isOther) {
-            if(otherServiceInput.value) otherServiceInput.value = '';
-            clearError(otherServiceInput);
-        }
+        if (!isOther) { if(otherServiceInput.value) otherServiceInput.value = ''; clearError(otherServiceInput); }
         clearError(servicesSelect);
     }
-    if(servicesSelect) {
-        servicesSelect.addEventListener('change', toggleOtherService);
-    }
+    if(servicesSelect) { servicesSelect.addEventListener('change', toggleOtherService); }
 
     // --- Form Submission Handler ---
     function handleSubmit(event) {
         event.preventDefault();
-        if (!form || !submitButton || !formStatusDiv || !signaturePad || !signatureDataInput || !canvas) {
-            console.error("Essential form elements missing.");
-            alert("Form error. Please reload.");
-            return false;
-        }
+        if (!form || !submitButton || !formStatusDiv || !signatureDataInput) { /* Essential checks */ return false; }
 
         let isValid = true;
-        clearAllErrors(); // Clear previous errors/status first
+        clearAllErrors();
 
-        // --- Validation ---
-        const requiredInputs = form.querySelectorAll('input[required], select[required]');
-        requiredInputs.forEach(input => {
+        // --- Validation (Signature Check Removed) ---
+        form.querySelectorAll('input[required], select[required]').forEach(input => {
             clearError(input);
             if (!input.checkValidity()) {
                 isValid = false;
-                let message = input.validationMessage || 'This field is required.'; // Use browser msg or default
-                 if (input.validity.valueMissing && input.tagName === 'SELECT') {
-                    message = 'Please select an option.';
-                 }
+                let message = input.validationMessage || 'This field is required.';
+                 if (input.validity.valueMissing && input.tagName === 'SELECT') { message = 'Please select an option.'; }
                 showError(input, message);
             }
         });
-        if (servicesSelect && servicesSelect.value === 'Others') {
+        if (servicesSelect?.value === 'Others') { // Optional chaining for safety
              if (otherServiceInput && (!otherServiceInput.value || otherServiceInput.value.trim() === '')) {
-                isValid = false;
-                showError(otherServiceInput, 'Please specify the service.');
+                isValid = false; showError(otherServiceInput, 'Please specify the service.');
             }
-        }
-        if (signaturePad.isEmpty()) {
-            isValid = false;
-            showError(canvas, 'Signature is required.');
         }
         // --- End Validation ---
 
         if (isValid) {
              // --- Prepare for Submission ---
-             if (!signaturePad.isEmpty()) {
-                 signatureDataInput.value = signaturePad.toDataURL('image/png');
-             } else {
-                 console.error("Validation passed but signature empty."); // Should not happen
-                 showError(canvas, 'Signature error.');
-                 return false;
-             }
-             submitButton.disabled = true;
-             formStatusDiv.textContent = 'Submitting... Please wait.';
-             formStatusDiv.className = 'submitting';
-             const formData = new FormData(form);
+             signatureDataInput.value = (signaturePad && !signaturePad.isEmpty()) ? signaturePad.toDataURL('image/png') : '';
 
-             console.log("--- Submitting Data ---"); // For debugging
+             submitButton.disabled = true; formStatusDiv.textContent = 'Submitting...'; formStatusDiv.className = 'submitting';
+             const formData = new FormData(form);
+             console.log("--- Submitting Data (Signature Optional) ---"); // Debug log
+             // Log form data (excluding potentially long signature)
+             for(let [key, value] of formData.entries()) { console.log(`${key}: ${key === 'signatureData' && value ? '[Signature Present]' : value}`); }
+
              // --- Fetch Call ---
              fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'cors' })
              .then(response => {
                  if (!response.ok) {
                       return response.text().then(text => {
-                          if (response.type === 'opaque' || (text && text.includes('<title>Google Apps Script</title>'))) {
-                               throw new Error(`Script access error. Check deployment (needs 'Anyone' access) & permissions.`);
-                          }
+                          if (response.type === 'opaque' || (text?.includes('<title>Google Apps Script</title>'))) { throw new Error(`Script access error. Check deployment/permissions.`); }
                           throw new Error(`Network error (${response.status}): ${response.statusText}. Server: ${text || 'No details'}`);
                       });
                  }
@@ -699,51 +466,33 @@
              })
              .then(data => {
                  console.log('Script Response:', data);
-                 if (data && data.result === "success") {
-                     // --- SUCCESS: Clear form and Redirect ---
-                     form.reset();
-                     signaturePad.clear();
-                     signatureDataInput.value = '';
-                     toggleOtherService(); // Reset conditional field state
-                     window.location.href = SUCCESS_PAGE_URL; // Redirect!
-                 } else {
-                     // Script reported an error
-                     throw new Error(data ? (data.message || 'Unknown script error.') : 'Invalid response from script.');
-                 }
+                 if (data?.result === "success") {
+                     form.reset(); if (signaturePad) signaturePad.clear(); signatureDataInput.value = ''; toggleOtherService();
+                     window.location.href = SUCCESS_PAGE_URL; // Redirect on success
+                 } else { throw new Error(data?.message || 'Unknown script error.'); }
              })
              .catch((error) => {
-                 // --- Handle Fetch/Script Errors ---
                  console.error('Submission Error:', error);
-                 formStatusDiv.textContent = `Error: ${error.message || 'Could not submit. Check console.'}`;
+                 formStatusDiv.textContent = `Error: ${error.message || 'Could not submit.'}`;
                  formStatusDiv.className = 'error';
-                 submitButton.disabled = false; // Re-enable button on error
+                 submitButton.disabled = false;
              });
-             // No .finally() needed here as redirection handles success state
-
         } else {
-            // --- Validation Failed ---
             console.log('Form validation failed.');
-            formStatusDiv.textContent = 'Please correct the errors above.';
-            formStatusDiv.className = 'error';
+            formStatusDiv.textContent = 'Please correct the errors above.'; formStatusDiv.className = 'error';
             const firstError = form.querySelector('.error-border');
-            if (firstError) {
-                 const scrollTarget = firstError.closest('.form-group') || firstError;
-                 if (scrollTarget) scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            if(submitButton) submitButton.disabled = false; // Re-enable button if validation fails
+            if (firstError) { firstError.closest('.form-group')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            if(submitButton) submitButton.disabled = false;
             return false;
         }
-         return false; // Prevent default form submission behavior
+         return false; // Prevent default regardless
     }
 
     // Initial setup on page load
     document.addEventListener('DOMContentLoaded', () => {
-         if (canvas && signaturePad) { // Ensure elements exist
-            setTimeout(resizeCanvas, 100); // Initial resize after layout
-         }
-         toggleOtherService(); // Initial check for conditional field
+         if (canvas && signaturePad) { setTimeout(resizeCanvas, 100); }
+         toggleOtherService();
     });
-
   </script>
 
 </body>
