@@ -16,28 +16,37 @@
         --bg-color-light: #f9fafb;
         --bg-color-white: #ffffff;
         --border-color: #e5e7eb; /* Gray 200 */
+        --header-height: 85px;
     }
 
     /* --- Base Styles --- */
+     *, *::before, *::after {
+        box-sizing: border-box;
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       margin: 0;
       background-color: var(--bg-color-light);
-      padding-top: 85px; /* Offset fixed header */
+      padding-top: var(--header-height); /* Offset fixed header */
+      /* Overall padding */
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 40px; /* More space at bottom */
       min-height: 100vh;
-      box-sizing: border-box;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      overflow-x: hidden; /* Prevent horizontal scroll from animations */
+      flex-direction: column; /* Allow header and container */
+      align-items: center; /* Center container horizontally */
+      justify-content: flex-start; /* Align container below header */
+      overflow-x: hidden;
     }
 
-    /* --- Header Styles (Keep As Is) --- */
+    /* --- Header Styles --- */
     .app-header {
         position: fixed; top: 0; left: 0; z-index: 100; width: 100%;
-        background-color: var(--bg-color-white); padding: 15px 20px;
+        background-color: var(--bg-color-white);
+        padding: 15px max(15px, env(safe-area-inset-left)) 15px max(15px, env(safe-area-inset-right));
         box-sizing: border-box; display: flex; align-items: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06); height: 85px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06); height: var(--header-height);
         border-bottom: 1px solid var(--border-color);
     }
     .logo { height: 55px; width: auto; margin-right: 15px; flex-shrink: 0; }
@@ -48,110 +57,45 @@
 
     /* --- Container Style --- */
     .container {
-      width: 100%; max-width: 500px; /* Slightly wider */
-      background-color: var(--bg-color-white); border-radius: 12px; /* More rounded */
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04); /* Deeper shadow */
-      padding: 40px 40px 45px 40px; box-sizing: border-box;
-      position: relative; margin: 60px auto; text-align: center;
+      width: 100%; /* Takes full width inside body padding */
+      max-width: 520px; /* Slightly wider for success message */
+      background-color: var(--bg-color-white); border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+      /* Padding inside the container */
+      padding: 30px 25px 40px 25px;
+      position: relative;
+      /* Vertical margin, auto for horizontal centering */
+      margin: 40px auto 0 auto;
+      text-align: center;
       border: 1px solid var(--border-color);
-      /* Entry Animation */
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       animation: slideFadeUp 0.7s 0.2s ease-out forwards;
     }
-    @keyframes slideFadeUp {
-        to { opacity: 1; transform: translateY(0); }
-    }
+     @media (min-width: 500px) {
+        .container { padding: 40px 40px 45px 40px; }
+     }
+    @keyframes slideFadeUp { to { opacity: 1; transform: translateY(0); } }
 
     /* --- Success Confirmation Content --- */
     .success-confirmation { display: flex; flex-direction: column; align-items: center; }
 
     /* --- Advanced Checkmark Animation --- */
-    .checkmark-container {
-        width: 100px; height: 100px;
-        position: relative;
-        margin: 10px auto 25px auto;
-    }
-
-    .checkmark-svg {
-        width: 100%; height: 100%;
-        position: absolute; top: 0; left: 0;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-
-    /* 1. Background Circle Pulse/Reveal */
-    .checkmark__bg-circle {
-        fill: var(--success-color);
-        transform-origin: center;
-        opacity: 0;
-        transform: scale(0.5);
-        animation: circleReveal 0.5s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    }
-    @keyframes circleReveal {
-        to { opacity: 0.15; transform: scale(1); }
-    }
-
-    /* 2. Outer Ring Draw */
-    .checkmark__outer-ring {
-        stroke: var(--success-color);
-        stroke-width: 3;
-        fill: none;
-        stroke-dasharray: 283; /* 2 * PI * 45 */
-        stroke-dashoffset: 283;
-        transform-origin: center;
-        transform: rotate(-90deg); /* Start drawing from top */
-        animation: drawRing 0.8s 0.3s ease-out forwards;
-    }
-    @keyframes drawRing {
-        to { stroke-dashoffset: 0; }
-    }
-
-    /* 3. Checkmark Path Draw */
-    .checkmark__check-path {
-        stroke: var(--success-color);
-        stroke-width: 5; /* Thicker check */
-        fill: none;
-        stroke-dasharray: 70;
-        stroke-dashoffset: 70;
-        /* Delay this significantly */
-        animation: drawCheck 0.4s 0.9s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-    @keyframes drawCheck {
-        to { stroke-dashoffset: 0; }
-    }
+    .checkmark-container { width: 100px; height: 100px; position: relative; margin: 10px auto 25px auto; }
+    .checkmark-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; stroke-linecap: round; stroke-linejoin: round; }
+    .checkmark__bg-circle { fill: var(--success-color); transform-origin: center; opacity: 0; transform: scale(0.5); animation: circleReveal 0.5s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    @keyframes circleReveal { to { opacity: 0.15; transform: scale(1); } }
+    .checkmark__outer-ring { stroke: var(--success-color); stroke-width: 3; fill: none; stroke-dasharray: 283; stroke-dashoffset: 283; transform-origin: center; transform: rotate(-90deg); animation: drawRing 0.8s 0.3s ease-out forwards; }
+    @keyframes drawRing { to { stroke-dashoffset: 0; } }
+    .checkmark__check-path { stroke: var(--success-color); stroke-width: 5; fill: none; stroke-dasharray: 70; stroke-dashoffset: 70; animation: drawCheck 0.4s 0.9s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
 
     /* --- Text Content Styling & Animation --- */
-    .success-heading, .success-details, .data-collection-notice, .button-primary {
-        /* Staggered Fade-In Animation */
-        opacity: 0;
-        animation: contentFadeIn 0.6s ease-out forwards;
-    }
-
-    .success-heading {
-        font-size: 28px; font-weight: 700; color: var(--success-color-dark);
-        margin-top: 15px; margin-bottom: 12px;
-        animation-delay: 1.3s; /* After checkmark is mostly done */
-    }
-
-    .success-details {
-        font-size: 16px; color: var(--text-color-secondary);
-        margin-bottom: 30px; line-height: 1.6;
-        animation-delay: 1.5s;
-    }
-
-    .data-collection-notice {
-        font-size: 13px; color: var(--text-color-subtle);
-        margin-top: 30px; padding-top: 20px;
-        border-top: 1px solid var(--border-color);
-        line-height: 1.6; text-align: left;
-        animation-delay: 1.7s;
-    }
+    .success-heading, .success-details, .data-collection-notice, .button-primary { opacity: 0; animation: contentFadeIn 0.6s ease-out forwards; }
+    .success-heading { font-size: 28px; font-weight: 700; color: var(--success-color-dark); margin-top: 15px; margin-bottom: 12px; animation-delay: 1.3s; }
+    .success-details { font-size: 16px; color: var(--text-color-secondary); margin-bottom: 30px; line-height: 1.6; animation-delay: 1.5s; }
+    .data-collection-notice { font-size: 13px; color: var(--text-color-subtle); margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); line-height: 1.6; text-align: left; animation-delay: 1.7s; }
     .data-collection-notice strong { color: var(--text-color-secondary); font-weight: 600; }
-
-    @keyframes contentFadeIn {
-        to { opacity: 1; }
-    }
+    @keyframes contentFadeIn { to { opacity: 1; } }
 
     /* --- Button Style --- */
     .button-primary {
@@ -161,18 +105,10 @@
       cursor: pointer; text-decoration: none; margin-top: 35px;
       transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-      animation-delay: 1.9s; /* Last element to appear */
+      animation-delay: 1.9s;
     }
-    .button-primary:hover {
-      background-color: var(--brand-color-dark);
-      transform: translateY(-2px); /* Slightly more lift */
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.07);
-    }
-    .button-primary:active {
-        transform: translateY(0px);
-        background-color: #c2410c; /* Orange 700 */
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-    }
+    .button-primary:hover { background-color: var(--brand-color-dark); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.07); }
+    .button-primary:active { transform: translateY(0px); background-color: #c2410c; box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); }
 
   </style>
 </head>
@@ -190,87 +126,44 @@
   <!-- Main Content -->
   <div class="container">
     <div class="success-confirmation">
-
-        <!-- Advanced Checkmark SVG Structure -->
         <div class="checkmark-container">
             <svg class="checkmark-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <!-- Background Circle (for pulse/glow effect) -->
                 <circle class="checkmark__bg-circle" cx="50" cy="50" r="47"/>
-                <!-- Outer Ring -->
                 <circle class="checkmark__outer-ring" cx="50" cy="50" r="45"/>
-                <!-- Checkmark Path -->
-                <!-- Adjusted path for 100x100 box: Start(28,50) LineTo(45,67) LineTo(72,38) -->
                 <path class="checkmark__check-path" d="M28 50 L45 67 L72 38"/>
             </svg>
         </div>
-
-        <!-- Text Content -->
         <h2 class="success-heading">Registration Successful!</h2>
         <p class="success-details">Thank you, your information has been recorded successfully.</p>
-
-        <!-- Data Collection Notice -->
         <div class="data-collection-notice">
-            <strong>Data Collection Notice:</strong> The information you provide (excluding signature image data unless explicitly needed for verification) is collected solely for the purpose of recording client interactions and service usage for reporting and improvement within the DICT Surigao del Norte Provincial Office. Your data is treated confidentially and stored securely. It will not be shared with third parties without your consent, except as required by law.
+             <strong>Data Collection Notice:</strong> The information you provide will be used solely for visitor tracking and service improvement purposes only. You have the right to request a copy of any
+            perosnal data that we hold about you, as well as to request its correction if you believe it to be inaccurate in compliance and with due respect to the Data Privacy Act of 2012.
         </div>
-
-        <!-- Back Button -->
-        <a href="index.html" class="button-primary">Register Another Client</a>
-
+        <a href="index.html" class="button-primary">Register Another Visitor</a> <!-- Updated Button Text -->
     </div>
   </div>
 
-  <!-- Confetti Library -->
+  <!-- Confetti & JS (remains the same) -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-
-  <!-- Custom JS for Interaction -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const checkMarkPath = document.querySelector('.checkmark__check-path');
-
         if (checkMarkPath) {
-            // Listen for the checkmark animation to finish
-            checkMarkPath.addEventListener('animationend', () => {
-                console.log('Checkmark animation finished, launching confetti!'); // For debugging
-                launchConfetti();
-            });
-        } else {
-            console.error('Checkmark path element not found for animation listener.');
-            // Fallback: Launch confetti after a fixed delay if the listener fails
-            setTimeout(launchConfetti, 1400); // Match animation timing (0.9s delay + 0.4s duration)
-        }
+            checkMarkPath.addEventListener('animationend', () => { launchConfetti(); });
+        } else { setTimeout(launchConfetti, 1400); }
     });
-
-    function launchConfetti() {
-        const duration = 3 * 1000; // 3 seconds
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 101 }; // zIndex above header
-
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
+    function launchConfetti() { /* ... (keep confetti function as is) ... */
+        const duration = 3 * 1000; const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 101 };
+        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
         const interval = setInterval(function() {
-            const timeLeft = animationEnd - Date.now();
-
-            if (timeLeft <= 0) {
-                return clearInterval(interval);
-            }
-
+            const timeLeft = animationEnd - Date.now(); if (timeLeft <= 0) { return clearInterval(interval); }
             const particleCount = 50 * (timeLeft / duration);
-            // since particles fall down, start a bit higher than random
             confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
             confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
         }, 250);
-
-         // Add a single, bigger burst right at the start
-         confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#f97316', '#ea580c', '#ffffff', '#10b981', '#059669'], // Theme colors
-            zIndex: 101
-        });
-    }
+         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#f97316', '#ea580c', '#ffffff', '#10b981', '#059669'], zIndex: 101 });
+     }
   </script>
 
 </body>
