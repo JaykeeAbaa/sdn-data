@@ -6,29 +6,31 @@
   <title>Client Registration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    /* --- Styles from previous index.html (ensure these are complete) --- */
     body {
-      font-family: sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Match success page font */
       margin: 0;
-      background-color: #f9f9f9;
+      background-color: #f9fafb; /* Match success page background */
       padding-top: 85px; /* Adjust based on header height */
       min-height: 100vh;
       box-sizing: border-box;
     }
 
-    /* --- HEADER STYLES --- */
+    /* --- HEADER STYLES (Match success page) --- */
     .app-header {
         position: fixed;
         top: 0;
         left: 0;
         z-index: 100;
         width: 100%;
-        background-color: #fff;
+        background-color: #ffffff;
         padding: 15px 20px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-        height: 85px; /* Example fixed height */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        height: 85px;
+        border-bottom: 1px solid #e5e7eb;
     }
 
     .logo {
@@ -46,61 +48,65 @@
     .office-name {
         font-size: 16px;
         font-weight: 600;
-        color: #222;
+        color: #1f2937;
         margin: 0 0 4px 0;
     }
 
     .office-address {
         font-size: 13px;
-        color: #666;
+        color: #6b7280;
         margin: 0;
         line-height: 1.4;
     }
     /* --- END HEADER STYLES --- */
 
+    /* --- FORM CONTAINER STYLES (Match success page container but maybe narrower) --- */
     .container {
       width: 100%;
-      max-width: 400px;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
-      padding: 20px 20px 25px 20px;
+      max-width: 450px; /* Slightly wider than original, adjust if needed */
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 25px 30px 30px 30px; /* Adjust padding */
       box-sizing: border-box;
       position: relative;
-      margin: 20px auto;
+      margin: 30px auto; /* Adjust margin */
+      border: 1px solid #e5e7eb;
     }
 
-    h2 { /* Form title */
+     h2 { /* Form title */
       font-size: 24px;
-      font-weight: bold;
-      color: #222;
+      font-weight: 600; /* Semibold */
+      color: #111827; /* Gray 900 */
       margin-top: 0;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-align: center;
     }
 
     .subtitle {
         font-size: 15px;
-        color: #777;
+        color: #6b7280; /* Gray 500 */
         margin-bottom: 30px;
         text-align: center;
     }
 
+    /* --- FORM ELEMENT STYLES (Refined) --- */
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 22px; /* Slightly more space */
     }
 
     label, .form-label {
       display: block;
-      font-size: 15px;
-      color: #555;
-      margin-bottom: 8px;
+      font-size: 14px; /* Slightly smaller label */
+      font-weight: 500; /* Medium weight */
+      color: #374151; /* Gray 700 */
+      margin-bottom: 6px; /* Less space below label */
     }
 
     .required {
-        color: #FF6600;
+        color: #ef4444; /* Tailwind Red 500 */
         margin-left: 3px;
-        font-weight: bold;
+        font-weight: 500;
     }
 
     input[type="text"],
@@ -108,67 +114,62 @@
     select,
     textarea {
       width: 100%;
-      padding: 12px 15px;
+      padding: 10px 12px; /* Adjusted padding */
       font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      border: 1px solid #d1d5db; /* Gray 300 */
+      border-radius: 6px; /* Standard border radius */
       box-sizing: border-box;
       outline: none;
-      background-color: #fff;
-      color: #333;
+      background-color: #ffffff;
+      color: #111827; /* Gray 900 */
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
       font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-
-    input::placeholder,
-    textarea::placeholder {
-        color: #aaa;
-        font-size: inherit;
-    }
-
     input[type="text"]:focus,
     input[type="number"]:focus,
     select:focus,
     textarea:focus {
-      border-color: #FF6600;
+      border-color: #f97316; /* Orange 500 */
+      box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3); /* Focus ring */
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #9ca3af; /* Gray 400 */
+        font-size: 15px; /* Slightly smaller placeholder */
+        opacity: 1; /* Ensure visible */
     }
 
     select {
-        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.4-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%236b7280%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%20/%3E%3C/svg%3E'); /* Tailwind style chevron */
+        background-position: right 0.75rem center;
         background-repeat: no-repeat;
-        background-position: right 15px center;
-        background-size: 12px auto;
-        padding-right: 40px;
+        background-size: 1.25em 1.25em;
+        padding-right: 2.5rem; /* Space for chevron */
     }
     select:required:invalid {
-      color: #aaa;
+      color: #9ca3af; /* Gray 400 for placeholder */
     }
-    select option[value=""][disabled] {
+     select option[value=""][disabled] {
       display: none;
     }
      select option {
-      color: #333;
+      color: #111827; /* Ensure options are dark */
     }
 
     textarea {
         resize: vertical;
-        min-height: 80px;
+        min-height: 90px;
     }
 
-    .hidden {
-        display: none;
-    }
-    .mt-2 {
-        margin-top: 10px;
-    }
-    .form-hint {
-        font-size: 12px;
-        color: #888;
-        margin-top: 5px;
-    }
+    .hidden { display: none; }
+    .mt-2 { margin-top: 10px; }
+    .form-hint { font-size: 12px; color: #6b7280; margin-top: 4px; }
 
+    /* Checkbox Group */
     .first-visit-checkbox-group {
         display: flex;
         align-items: center;
@@ -176,142 +177,150 @@
         margin-bottom: 25px;
     }
     .first-visit-checkbox-group input[type="checkbox"] {
-        width: auto;
-        margin-right: 10px;
-        accent-color: #FF6600;
-        height: 16px;
-        width: 16px;
+        height: 1em; /* Relative size */
+        width: 1em;
+        margin-right: 0.6em;
+        border-radius: 3px;
+        border: 1px solid #d1d5db;
         cursor: pointer;
+        accent-color: #f97316; /* Use accent-color for modern browsers */
+        flex-shrink: 0;
+         /* Basic styling for browsers not supporting accent-color well */
          appearance: none;
          -webkit-appearance: none;
          -moz-appearance: none;
-         border: 1px solid #ccc;
-         border-radius: 3px;
          position: relative;
          top: 1px;
+         background-color: #fff;
     }
-     .first-visit-checkbox-group input[type="checkbox"]:checked {
-         background-color: #FF6600;
-         border-color: #FF6600;
-     }
+    .first-visit-checkbox-group input[type="checkbox"]:checked {
+         background-color: #f97316;
+         border-color: #f97316;
+    }
      .first-visit-checkbox-group input[type="checkbox"]:checked::before {
          content: '\2714'; /* Checkmark */
-         font-size: 12px;
+         font-size: 0.8em;
          color: white;
          position: absolute;
          left: 50%;
          top: 50%;
          transform: translate(-50%, -50%);
+         line-height: 1;
      }
+     .first-visit-checkbox-group input[type="checkbox"]:focus {
+        box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3); /* Focus ring */
+        border-color: #f97316;
+     }
+
     .first-visit-checkbox-group label {
         margin-bottom: 0;
         display: flex;
         align-items: center;
         cursor: pointer;
-        color: #555;
-        font-size: 15px;
+        color: #374151;
+        font-size: 14px; /* Match labels */
+        font-weight: 500;
     }
-    .first-visit-checkbox-group span {
-        line-height: 1;
-    }
+    .first-visit-checkbox-group span { line-height: 1; }
 
-    .signature-group {
-        margin-bottom: 20px;
-    }
+    /* Signature Area */
+    .signature-group { margin-bottom: 22px; }
     .canvas-container {
-        border: 1px solid #ddd;
-        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
         margin-bottom: 10px;
         position: relative;
         cursor: crosshair;
         overflow: hidden;
         line-height: 0;
+        background-color: #f9fafb; /* Light background for canvas */
     }
     #signatureCanvas {
         display: block;
         width: 100%;
         height: 150px;
-        background-color: #fdfdfd;
+        background-color: transparent; /* Use container background */
     }
     .clear-btn {
-        padding: 8px 15px;
-        font-size: 14px;
-        color: #555;
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        border-radius: 6px;
+        padding: 6px 12px; /* Smaller clear button */
+        font-size: 13px;
+        color: #4b5563; /* Gray 600 */
+        background-color: #f3f4f6; /* Gray 100 */
+        border: 1px solid #e5e7eb; /* Gray 200 */
+        border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.2s ease;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
     }
     .clear-btn:hover {
-        background-color: #e0e0e0;
+        background-color: #e5e7eb; /* Gray 200 */
+        border-color: #d1d5db; /* Gray 300 */
     }
-    #signatureData {
-        display: none;
-    }
-    #sigError {
-        color: #D8000C;
-        font-size: 12px;
-        margin-top: 5px;
-        min-height: 15px;
-    }
+    #signatureData { display: none; }
+    #sigError { color: #ef4444; font-size: 12px; margin-top: 5px; min-height: 15px; }
+
+     /* Error Styling */
      .canvas-container.error-border,
      input.error-border,
      select.error-border,
      textarea.error-border {
-         border-color: #D8000C !important;
+         border-color: #ef4444 !important; /* Red 500 */
+         box-shadow: 0 0 0 1px #ef4444 !important; /* Ensure focus shadow is overridden */
      }
-     .error-message {
-        color: #D8000C;
-        font-size: 12px;
-        margin-top: 4px;
-        min-height: 15px;
-     }
+     .error-message { color: #ef4444; font-size: 12px; margin-top: 4px; min-height: 15px; }
 
 
+    /* --- BUTTON STYLE (Match success page) --- */
     .button-primary {
-      width: 100%;
-      padding: 14px;
+      width: 100%; /* Full width for form submit */
+      padding: 12px 20px;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 600;
       color: #fff;
-      background-color: #FF6600;
+      background-color: #f97316; /* Tailwind Orange 500 */
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.2s ease, opacity 0.2s ease; /* Added opacity transition */
+      transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease, opacity 0.2s ease;
       margin-top: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
     }
     .button-primary:hover {
-      background-color: #E65C00;
+      background-color: #ea580c; /* Tailwind Orange 600 */
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
     }
-    .button-primary:disabled { /* Style for disabled state */
-        background-color: #FFCC99; /* Lighter orange */
+     .button-primary:active {
+        transform: translateY(0px);
+        background-color: #c2410c; /* Tailwind Orange 700 */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .button-primary:disabled {
+        background-color: #fdba74; /* Tailwind Orange 300 */
         cursor: wait;
         opacity: 0.7;
+        transform: none;
+        box-shadow: none;
     }
 
-    .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
-
-    #formStatus { /* Style for the status message */
+    /* --- STATUS MESSAGE STYLING (For errors / submitting) --- */
+    #formStatus {
         margin-top: 15px;
         text-align: center;
-        font-weight: bold;
-        min-height: 20px; /* Reserve space */
+        font-weight: 500;
+        min-height: 20px;
+        padding: 10px 15px;
+        border-radius: 6px;
     }
-    #formStatus.success { color: green; }
-    #formStatus.error { color: red; }
-    #formStatus.submitting { color: #555; } /* Neutral color */
+    #formStatus.error {
+        color: #dc2626; /* Red 600 */
+        background-color: #fee2e2; /* Red 100 */
+        border: 1px solid #fca5a5; /* Red 300 */
+    }
+    #formStatus.submitting {
+        color: #4b5563; /* Gray 600 */
+        background-color: #f3f4f6; /* Gray 100 */
+        border: 1px solid #e5e7eb; /* Gray 200 */
+    }
 
   </style>
 </head>
@@ -319,8 +328,7 @@
 
   <!-- ****** FIXED HEADER ****** -->
   <header class="app-header">
-    <!-- Make sure the logo path is correct relative to your HTML file -->
-    <img src="dict logo.png" alt="Office Logo" class="logo">
+    <img src="dict logo.png" alt="Office Logo" class="logo"> <!-- UPDATE path if needed -->
     <div class="header-text">
         <h3 class="office-name">Department of Information and Communications Technology</h3>
         <p class="office-address">Surigao del Norte Provincial Office</p>
@@ -334,13 +342,13 @@
     <h2>Client Registration</h2>
     <p class="subtitle">Please provide your details below</p>
 
-    <!-- Ensure the onsubmit handler calls the correct function -->
     <form id="registrationForm" onsubmit="return handleSubmit(event)">
 
+        <!-- Form Fields (Keep structure as before) -->
         <!-- 1. Full Name -->
         <div class="form-group">
             <label for="fullName" class="form-label">Full Name <span class="required">*</span></label>
-            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            <input type="text" id="fullName" name="fullName" required placeholder="Juan Dela Cruz">
             <div class="error-message"></div>
         </div>
 
@@ -383,7 +391,7 @@
              <div class="error-message"></div>
             <!-- 5. Other Service (Conditional) -->
             <div id="other_service_div" class="mt-2 hidden">
-                <label for="other_service" class="visually-hidden">Other Service Specification</label>
+                <label for="other_service" class="visually-hidden">Other Service Specification</label> <!-- Visually hidden label for accessibility -->
                 <input type="text" id="other_service" name="other_service" placeholder="Please specify other service">
                 <p class="form-hint">Provide details if you selected "Others"</p>
                  <div class="error-message"></div>
@@ -395,7 +403,7 @@
             <label for="sector" class="form-label">Sector <span class="required">*</span></label>
             <select id="sector" name="sector" required>
                 <option value="" disabled selected>Select your sector</option>
-                <option value="Out-of-School Youth & Adults">Out-of-School Youth & Adults</option>
+                 <option value="Out-of-School Youth & Adults">Out-of-School Youth & Adults</option>
                 <option value="Educators">Educators</option>
                 <option value="Students">Students</option>
                 <option value="People with Disabilities">People with Disabilities</option>
@@ -432,13 +440,13 @@
         <div class="form-group">
              <label for="recommendations" class="form-label">Recommendations/Comments</label>
              <textarea id="recommendations" name="recommendations" rows="3" placeholder="Any suggestions or feedback? (Optional)"></textarea>
-             <!-- No error message needed for optional field -->
+             <!-- No error message needed -->
         </div>
 
          <!-- 10. First Time Visit -->
         <div class="form-group first-visit-checkbox-group">
-            <label>
-                <!-- IMPORTANT: name attribute MUST match the Google Sheet header -->
+             <!-- Label wraps input for better clickability -->
+            <label for="isFirstVisit">
                 <input type="checkbox" name="is_first_visit" id="isFirstVisit" value="true">
                 <span>This is my first visit</span>
             </label>
@@ -451,16 +459,16 @@
                <canvas id="signatureCanvas"></canvas>
             </div>
              <button type="button" id="clearSignatureBtn" class="clear-btn">Clear Signature</button>
-             <!-- IMPORTANT: name attribute MUST match the Google Sheet header -->
              <input type="hidden" id="signatureData" name="signatureData">
              <div id="sigError"></div>
         </div>
+        <!-- End Form Fields -->
 
         <!-- Submit Button -->
-        <button type="submit" id="submitButton" class="button-primary">Register Client</button> <!-- Added id -->
+        <button type="submit" id="submitButton" class="button-primary">Register Client</button>
 
-        <!-- Status Message Area -->
-        <div id="formStatus"></div> <!-- Added this div -->
+        <!-- Status Message Area (for errors / submitting state) -->
+        <div id="formStatus"></div>
 
     </form>
 
@@ -477,9 +485,15 @@
     const otherServiceDiv = document.getElementById('other_service_div');
     const otherServiceInput = document.getElementById('other_service');
     const canvas = document.getElementById('signatureCanvas');
-    const signaturePad = new SignaturePad(canvas, {
-        backgroundColor: 'rgb(253, 253, 253)'
-    });
+    // Initialize SignaturePad safely
+    let signaturePad = null;
+    if (canvas) {
+        signaturePad = new SignaturePad(canvas, {
+            backgroundColor: 'rgb(249, 250, 251)' // Match canvas container bg color
+        });
+    } else {
+        console.error("Signature canvas element not found!");
+    }
     const clearButton = document.getElementById('clearSignatureBtn');
     const signatureDataInput = document.getElementById('signatureData');
     const sigErrorDiv = document.getElementById('sigError');
@@ -488,16 +502,19 @@
     const formStatusDiv = document.getElementById('formStatus');
 
     // --- CONFIGURATION: Google Apps Script Web App URL ---
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbww5IncijGSykMP2tFHo8BDL2j7Cldq98VWc-QUzkpNx7t4iobSs7GscBQj7b1AJleN/exec'; // <<< URL INSERTED HERE
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbww5IncijGSykMP2tFHo8BDL2j7Cldq98VWc-QUzkpNx7t4iobSs7GscBQj7b1AJleN/exec'; // Your specific URL
+    const SUCCESS_PAGE_URL = 'success.html'; // Filename of your success page
     // --------------------------------------------------
 
-    // Basic check if URL seems valid (not a comprehensive check)
+    // Basic check if URL seems valid
     if (!SCRIPT_URL || !SCRIPT_URL.startsWith('https://script.google.com/macros/s/')) {
         console.error("Configuration Error: The SCRIPT_URL seems invalid or is missing.");
         alert("Configuration Error: Script URL is missing or invalid. Form submission disabled.");
-        submitButton.disabled = true;
-        formStatusDiv.textContent = 'Configuration error: Invalid Script URL.';
-        formStatusDiv.className = 'error';
+        if(submitButton) submitButton.disabled = true;
+        if(formStatusDiv) {
+            formStatusDiv.textContent = 'Configuration error: Invalid Script URL.';
+            formStatusDiv.className = 'error';
+        }
     }
 
     // --- Helper: Debounce function ---
@@ -518,281 +535,213 @@
 
     // --- Helper: Adjust canvas size ---
     function resizeCanvas() {
+        if (!canvas || !signaturePad) return;
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        const currentData = signaturePad.toDataURL(); // Save current drawing
+        // Save drawing data only if not empty
+        const currentData = signaturePad.isEmpty() ? null : signaturePad.toDataURL();
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
         canvas.getContext("2d").scale(ratio, ratio);
-        signaturePad.fromDataURL(currentData); // Re-draw saved drawing
-        clearSignatureError(); // Clear error state on resize
+        // Restore drawing if it existed
+        if (currentData) {
+            signaturePad.fromDataURL(currentData);
+        } else {
+            signaturePad.clear(); // Ensure background color is reapplied if cleared
+        }
+        clearSignatureError();
     }
 
     // --- Helper: Show/Hide Validation Error ---
-    function showError(inputElement, message) {
-        const errorDiv = inputElement.parentElement.querySelector('.error-message, #sigError'); // Target specific error divs
+     function showError(inputElement, message) {
+        const errorDiv = inputElement && inputElement.id === 'signatureCanvas'
+            ? sigErrorDiv
+            : (inputElement && inputElement.parentElement ? inputElement.parentElement.querySelector('.error-message') : null);
+
         if (errorDiv) {
             errorDiv.textContent = message;
         }
-        // Add error border class
-        if (inputElement.id === 'signatureCanvas') {
-             canvasContainer.classList.add('error-border');
-        } else if (inputElement) { // Ensure inputElement exists
+        if (inputElement && inputElement.id === 'signatureCanvas') {
+             if(canvasContainer) canvasContainer.classList.add('error-border');
+        } else if (inputElement) {
              inputElement.classList.add('error-border');
         }
     }
 
     function clearError(inputElement) {
-        const errorDiv = inputElement.parentElement.querySelector('.error-message, #sigError');
+         const errorDiv = inputElement && inputElement.id === 'signatureCanvas'
+            ? sigErrorDiv
+            : (inputElement && inputElement.parentElement ? inputElement.parentElement.querySelector('.error-message') : null);
+
          if (errorDiv) {
              errorDiv.textContent = '';
          }
-         // Remove error border class
-         if (inputElement.id === 'signatureCanvas') {
-             canvasContainer.classList.remove('error-border');
-         } else if (inputElement) { // Ensure inputElement exists
+         if (inputElement && inputElement.id === 'signatureCanvas') {
+             if(canvasContainer) canvasContainer.classList.remove('error-border');
+         } else if (inputElement) {
              inputElement.classList.remove('error-border');
          }
     }
 
      function clearSignatureError() {
-         canvasContainer.classList.remove('error-border');
+         if(canvasContainer) canvasContainer.classList.remove('error-border');
          if(sigErrorDiv) sigErrorDiv.textContent = '';
      }
 
      function clearAllErrors() {
+         // Clear text and borders from form fields
          const errorMessages = form.querySelectorAll('.error-message, #sigError');
          errorMessages.forEach(el => el.textContent = '');
          const errorBorders = form.querySelectorAll('.error-border');
          errorBorders.forEach(el => el.classList.remove('error-border'));
+         // Clear the main status message area
          if(formStatusDiv) {
              formStatusDiv.textContent = '';
-             formStatusDiv.className = ''; // Clear status style class
+             formStatusDiv.className = ''; // Remove error/submitting classes
          }
      }
 
     // --- Event Listeners ---
-
-    // Adjust canvas on window resize (debounced)
     window.addEventListener("resize", debounce(resizeCanvas));
 
-    // Clear Signature Button
-    if(clearButton) {
+    if(clearButton && signaturePad) {
         clearButton.addEventListener('click', () => {
             signaturePad.clear();
-            if(signatureDataInput) signatureDataInput.value = ''; // Clear the hidden input as well
+            if (signatureDataInput) signatureDataInput.value = '';
             clearSignatureError();
         });
     }
 
-    // When user starts drawing, clear potential error message
-     if(canvas) {
-         canvas.addEventListener('pointerdown', (event) => {
-             clearSignatureError(); // Clear error as soon as drawing starts
-        });
-         canvas.addEventListener('touchstart', (event) => {
-             clearSignatureError();
-         }, { passive: true });
+     if(canvas && signaturePad) {
+         canvas.addEventListener('pointerdown', () => clearSignatureError());
+         canvas.addEventListener('touchstart', () => clearSignatureError(), { passive: true });
      }
 
-
-    // Toggle "Other Service" field visibility and requirement
+    // --- Toggle "Other Service" field ---
     function toggleOtherService() {
-        if (!servicesSelect || !otherServiceDiv || !otherServiceInput) return; // Add checks
-
-        const selectedValue = servicesSelect.value;
-        const otherErrorDiv = otherServiceInput.parentElement.querySelector('.error-message');
-
-        if (selectedValue === 'Others') {
-            otherServiceDiv.classList.remove('hidden');
-            otherServiceInput.required = true; // Add required attribute dynamically
-        } else {
-            otherServiceDiv.classList.add('hidden');
-            otherServiceInput.required = false; // Remove required attribute
-            otherServiceInput.value = ''; // Clear the input value when hidden
-            clearError(otherServiceInput); // Clear errors when hidden
+        if (!servicesSelect || !otherServiceDiv || !otherServiceInput) return;
+        const isOther = servicesSelect.value === 'Others';
+        otherServiceDiv.classList.toggle('hidden', !isOther);
+        otherServiceInput.required = isOther;
+        if (!isOther) {
+            if(otherServiceInput.value) otherServiceInput.value = '';
+            clearError(otherServiceInput);
         }
-         clearError(servicesSelect); // Clear error on the select itself when changed
+        clearError(servicesSelect);
     }
-
-    // Initial setup for Other Service field
-    document.addEventListener('DOMContentLoaded', () => {
-        toggleOtherService(); // Run on load
-        // Small delay for initial canvas resize
-        setTimeout(resizeCanvas, 100);
-    });
-    // Add listener to the select dropdown
     if(servicesSelect) {
         servicesSelect.addEventListener('change', toggleOtherService);
     }
 
-
     // --- Form Submission Handler ---
     function handleSubmit(event) {
-        event.preventDefault(); // Prevent default page reload
-
-        // Ensure critical elements exist before proceeding
+        event.preventDefault();
         if (!form || !submitButton || !formStatusDiv || !signaturePad || !signatureDataInput || !canvas) {
-            console.error("Form element(s) missing, cannot submit.");
-            alert("A critical form component is missing. Please reload the page.");
+            console.error("Essential form elements missing.");
+            alert("Form error. Please reload.");
             return false;
         }
 
         let isValid = true;
-        clearAllErrors(); // Clear previous errors and status
+        clearAllErrors(); // Clear previous errors/status first
 
-        // --- 1. Basic HTML5 Validation & Custom Required Messages ---
+        // --- Validation ---
         const requiredInputs = form.querySelectorAll('input[required], select[required]');
         requiredInputs.forEach(input => {
-            clearError(input); // Clear previous error first
+            clearError(input);
             if (!input.checkValidity()) {
                 isValid = false;
-                let message = 'This field is required.'; // Default required message
-                 if (input.validity.rangeUnderflow) {
-                     message = `Age must be at least ${input.min}.`;
-                 } else if(input.validity.rangeOverflow) {
-                     message = `Age must be no more than ${input.max}.`;
-                 } else if (input.validity.valueMissing && input.tagName === 'SELECT') {
+                let message = input.validationMessage || 'This field is required.'; // Use browser msg or default
+                 if (input.validity.valueMissing && input.tagName === 'SELECT') {
                     message = 'Please select an option.';
                  }
                 showError(input, message);
             }
         });
-
-        // --- 2. Custom Validation: "Other Service" ---
         if (servicesSelect && servicesSelect.value === 'Others') {
-             if (otherServiceInput) {
-                clearError(otherServiceInput); // Clear first
-                if (!otherServiceInput.value || otherServiceInput.value.trim() === '') {
-                    isValid = false;
-                    showError(otherServiceInput, 'Please specify the service.');
-                }
+             if (otherServiceInput && (!otherServiceInput.value || otherServiceInput.value.trim() === '')) {
+                isValid = false;
+                showError(otherServiceInput, 'Please specify the service.');
             }
         }
-
-        // --- 3. Custom Validation: Signature ---
-        clearSignatureError(); // Clear previous signature error
         if (signaturePad.isEmpty()) {
             isValid = false;
-            showError(canvas, 'Signature is required.'); // Use canvas element for showError context
-        } else {
-            // Signature is present, store data URL in the hidden input
-            // Will be done just before sending if form is valid
+            showError(canvas, 'Signature is required.');
         }
+        // --- End Validation ---
 
-
-        // --- Final Check & Submission ---
         if (isValid) {
-
-             // Ensure signature data is set one last time right before creating FormData
+             // --- Prepare for Submission ---
              if (!signaturePad.isEmpty()) {
                  signatureDataInput.value = signaturePad.toDataURL('image/png');
              } else {
-                 // This case should ideally not be reached due to validation above, but as a safeguard:
-                 console.error("Signature became empty unexpectedly before submission.");
-                 showError(canvas, 'Signature is required.');
-                 formStatusDiv.textContent = 'Please fix the errors above.';
-                 formStatusDiv.className = 'error';
-                 if (canvasContainer) canvasContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                 return false; // Stop submission
+                 console.error("Validation passed but signature empty."); // Should not happen
+                 showError(canvas, 'Signature error.');
+                 return false;
              }
+             submitButton.disabled = true;
+             formStatusDiv.textContent = 'Submitting... Please wait.';
+             formStatusDiv.className = 'submitting';
+             const formData = new FormData(form);
 
-            // Disable button and show submitting message
-            submitButton.disabled = true;
-            formStatusDiv.textContent = 'Submitting... Please wait.';
-            formStatusDiv.className = 'submitting'; // Add class for styling
-
-            // Create FormData object from the form
-            const formData = new FormData(form);
-
-            // --- Optional: Log data to console (for debugging) ---
-            console.log("--- Sending Data to Google Sheet ---");
-            for (let [key, value] of formData.entries()) {
-                if (key === 'signatureData' && typeof value === 'string' && value.length > 100) {
-                   console.log(`${key}: [Signature Data Present - Length: ${value.length}]`);
-                } else {
-                   console.log(`${key}: ${value}`);
-                }
-            }
-            console.log("Target URL:", SCRIPT_URL);
-            // -----------------------------------------
-
-
-            // --- Send data to Google Apps Script ---
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: formData,
-                mode: 'cors' // Standard mode for cross-origin requests expecting a response
-            })
-            .then(response => {
-                if (!response.ok) {
-                     // Try to get error text from response if possible
-                     return response.text().then(text => {
-                         // Check for specific Google Script errors (like redirection)
-                         if (response.type === 'opaque' || text.includes('<title>Google Apps Script</title>')) {
-                              throw new Error(`Script execution failed or redirected. Check script deployment settings (needs 'Anyone' access) and permissions.`);
-                         }
-                         throw new Error(`Network error: ${response.status} ${response.statusText}. Server: ${text || 'No details'}`);
-                     });
-                }
-                return response.json(); // Expect JSON response from Apps Script
-            })
-            .then(data => {
-                console.log('Success Response from Google Script:', data);
-                if (data && data.result === "success") {
-                    formStatusDiv.textContent = 'Registration Submitted Successfully!';
-                    formStatusDiv.className = 'success'; // Add class for styling
-                    form.reset(); // Reset form fields
-                    signaturePad.clear(); // Clear signature canvas
-                    signatureDataInput.value = ''; // **Important:** Clear hidden signature data after successful submit
-                    clearAllErrors(); // Clear any lingering visual error styles
-                    toggleOtherService(); // Ensure 'others' field is hidden again
-
-                    // Optionally clear the success message after a delay
-                    setTimeout(() => {
-                         if (formStatusDiv && formStatusDiv.textContent.includes('Successfully')) {
-                             formStatusDiv.textContent = '';
-                             formStatusDiv.className = '';
-                         }
-                    }, 5000); // Clear after 5 seconds
-
-                } else {
-                    // Handle specific error reported by the Apps Script or unexpected response format
-                    throw new Error(data ? (data.message || JSON.stringify(data)) : 'Invalid response format from script.');
-                }
-            })
-            .catch((error) => {
-                console.error('Error during submission:', error);
-                formStatusDiv.textContent = `Error: ${error.message || 'Could not submit form. Check console.'}`;
-                formStatusDiv.className = 'error';
-            })
-            .finally(() => {
-                // Re-enable button regardless of success or error
-                submitButton.disabled = false;
-            });
+             console.log("--- Submitting Data ---"); // For debugging
+             // --- Fetch Call ---
+             fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'cors' })
+             .then(response => {
+                 if (!response.ok) {
+                      return response.text().then(text => {
+                          if (response.type === 'opaque' || (text && text.includes('<title>Google Apps Script</title>'))) {
+                               throw new Error(`Script access error. Check deployment (needs 'Anyone' access) & permissions.`);
+                          }
+                          throw new Error(`Network error (${response.status}): ${response.statusText}. Server: ${text || 'No details'}`);
+                      });
+                 }
+                 return response.json();
+             })
+             .then(data => {
+                 console.log('Script Response:', data);
+                 if (data && data.result === "success") {
+                     // --- SUCCESS: Clear form and Redirect ---
+                     form.reset();
+                     signaturePad.clear();
+                     signatureDataInput.value = '';
+                     toggleOtherService(); // Reset conditional field state
+                     window.location.href = SUCCESS_PAGE_URL; // Redirect!
+                 } else {
+                     // Script reported an error
+                     throw new Error(data ? (data.message || 'Unknown script error.') : 'Invalid response from script.');
+                 }
+             })
+             .catch((error) => {
+                 // --- Handle Fetch/Script Errors ---
+                 console.error('Submission Error:', error);
+                 formStatusDiv.textContent = `Error: ${error.message || 'Could not submit. Check console.'}`;
+                 formStatusDiv.className = 'error';
+                 submitButton.disabled = false; // Re-enable button on error
+             });
+             // No .finally() needed here as redirection handles success state
 
         } else {
+            // --- Validation Failed ---
             console.log('Form validation failed.');
-            formStatusDiv.textContent = 'Please fix the errors above.';
-            formStatusDiv.className = 'error'; // Add class for styling
-            // Scroll to the first error
+            formStatusDiv.textContent = 'Please correct the errors above.';
+            formStatusDiv.className = 'error';
             const firstError = form.querySelector('.error-border');
             if (firstError) {
-                 // Find the element to scroll to (input/select/textarea or canvas container)
                  const scrollTarget = firstError.closest('.form-group') || firstError;
                  if (scrollTarget) scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-            return false; // Prevent submission if validation fails
+            if(submitButton) submitButton.disabled = false; // Re-enable button if validation fails
+            return false;
         }
-         return false; // Explicitly return false as we handle submission via fetch
+         return false; // Prevent default form submission behavior
     }
 
-    // Removed DOMContentLoaded listener for toggleOtherService/resizeCanvas as they are called elsewhere now.
-    // Initial canvas resize added to DOMContentLoaded handler at the end of the script for better timing.
-     document.addEventListener('DOMContentLoaded', () => {
-         // Small delay to ensure layout is final before first resize
-        setTimeout(resizeCanvas, 100);
-        // Initial check for 'Others' field state
-        toggleOtherService();
+    // Initial setup on page load
+    document.addEventListener('DOMContentLoaded', () => {
+         if (canvas && signaturePad) { // Ensure elements exist
+            setTimeout(resizeCanvas, 100); // Initial resize after layout
+         }
+         toggleOtherService(); // Initial check for conditional field
     });
 
   </script>
