@@ -6,12 +6,11 @@
   <title>Client Registration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /* --- Your existing CSS --- */
     body {
       font-family: sans-serif;
       margin: 0;
       background-color: #f9f9f9;
-      padding-top: 85px; /* ADJUST THIS VALUE based on your actual header height */
+      padding-top: 85px; /* Adjust based on header height */
       min-height: 100vh;
       box-sizing: border-box;
     }
@@ -29,10 +28,11 @@
         display: flex;
         align-items: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        height: 85px; /* Example fixed height */
     }
 
     .logo {
-        height: 62px;
+        height: 55px;
         width: auto;
         margin-right: 15px;
         flex-shrink: 0;
@@ -57,7 +57,6 @@
         line-height: 1.4;
     }
     /* --- END HEADER STYLES --- */
-
 
     .container {
       width: 100%;
@@ -91,10 +90,9 @@
       margin-bottom: 20px;
     }
 
-    /* --- Field Title (Label) Font Size --- */
     label, .form-label {
       display: block;
-      font-size: 15px;  /* <<< Standard mobile size (increased slightly) */
+      font-size: 15px;
       color: #555;
       margin-bottom: 8px;
     }
@@ -105,14 +103,13 @@
         font-weight: bold;
     }
 
-    /* --- Input/Select/Textarea Font Size --- */
     input[type="text"],
     input[type="number"],
     select,
     textarea {
       width: 100%;
       padding: 12px 15px;
-      font-size: 16px; /* <<< Standard 16px for mobile input */
+      font-size: 16px;
       border: 1px solid #ddd;
       border-radius: 8px;
       box-sizing: border-box;
@@ -125,12 +122,10 @@
       font-family: inherit;
     }
 
-    /* --- Placeholder Font Size --- */
     input::placeholder,
     textarea::placeholder {
         color: #aaa;
-        font-size: inherit; /* <<< Inherits 16px from input/textarea */
-        /* font-style: italic; */ /* Optional */
+        font-size: inherit;
     }
 
     input[type="text"]:focus,
@@ -140,7 +135,6 @@
       border-color: #FF6600;
     }
 
-    /* --- Select Box Placeholder Text --- */
     select {
         background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.4-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
         background-repeat: no-repeat;
@@ -148,16 +142,14 @@
         background-size: 12px auto;
         padding-right: 40px;
     }
-    /* Styles the select box when the default disabled option is selected */
     select:required:invalid {
-      color: #aaa; /* <<< Placeholder color */
-      /* font-style: italic; */ /* Optional */
+      color: #aaa;
     }
     select option[value=""][disabled] {
-      display: none; /* Hide the placeholder option from dropdown */
+      display: none;
     }
      select option {
-      color: #333; /* Normal text color for dropdown options */
+      color: #333;
     }
 
     textarea {
@@ -203,7 +195,7 @@
          border-color: #FF6600;
      }
      .first-visit-checkbox-group input[type="checkbox"]:checked::before {
-         content: '\2714';
+         content: '\2714'; /* Checkmark */
          font-size: 12px;
          color: white;
          position: absolute;
@@ -217,7 +209,6 @@
         align-items: center;
         cursor: pointer;
         color: #555;
-        /* Use label's standard font size */
         font-size: 15px;
     }
     .first-visit-checkbox-group span {
@@ -234,6 +225,7 @@
         position: relative;
         cursor: crosshair;
         overflow: hidden;
+        line-height: 0;
     }
     #signatureCanvas {
         display: block;
@@ -261,14 +253,19 @@
         color: #D8000C;
         font-size: 12px;
         margin-top: 5px;
+        min-height: 15px;
     }
-     .canvas-container.error-border {
-         border-color: #D8000C;
+     .canvas-container.error-border,
+     input.error-border,
+     select.error-border,
+     textarea.error-border {
+         border-color: #D8000C !important;
      }
-     .error-message { /* Style for JS-added error messages */
+     .error-message {
         color: #D8000C;
         font-size: 12px;
         margin-top: 4px;
+        min-height: 15px;
      }
 
 
@@ -282,15 +279,16 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, opacity 0.2s ease; /* Added opacity transition */
       margin-top: 15px;
     }
-    .button-primary:hover:not(:disabled) { /* Add :not(:disabled) */
+    .button-primary:hover {
       background-color: #E65C00;
     }
     .button-primary:disabled { /* Style for disabled state */
-      background-color: #cccccc;
-      cursor: not-allowed;
+        background-color: #FFCC99; /* Lighter orange */
+        cursor: wait;
+        opacity: 0.7;
     }
 
     .visually-hidden {
@@ -305,18 +303,23 @@
         border: 0;
     }
 
+    #formStatus { /* Style for the status message */
+        margin-top: 15px;
+        text-align: center;
+        font-weight: bold;
+        min-height: 20px; /* Reserve space */
+    }
+    #formStatus.success { color: green; }
+    #formStatus.error { color: red; }
+    #formStatus.submitting { color: #555; } /* Neutral color */
+
   </style>
-
-  <!-- ****** ADD SUPABASE JS LIBRARY ****** -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- ****** END SUPABASE JS LIBRARY ****** -->
-
 </head>
 <body>
 
   <!-- ****** FIXED HEADER ****** -->
   <header class="app-header">
-    <!-- Make sure 'dict logo.png' is in the same directory or provide the correct path -->
+    <!-- Make sure the logo path is correct relative to your HTML file -->
     <img src="dict logo.png" alt="Office Logo" class="logo">
     <div class="header-text">
         <h3 class="office-name">Department of Information and Communications Technology</h3>
@@ -328,40 +331,43 @@
 
   <div class="container">
 
-    <h2>Visitors Registration</h2>
-    <p class="subtitle">Please fill out the visitor information form</p>
+    <h2>Client Registration</h2>
+    <p class="subtitle">Please provide your details below</p>
 
-    <!-- Removed action="#" and method="POST" -->
-    <form id="registrationForm" onsubmit="handleSubmit(event)">
+    <!-- Ensure the onsubmit handler calls the correct function -->
+    <form id="registrationForm" onsubmit="return handleSubmit(event)">
 
         <!-- 1. Full Name -->
         <div class="form-group">
             <label for="fullName" class="form-label">Full Name <span class="required">*</span></label>
             <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            <div class="error-message"></div>
         </div>
 
         <!-- 2. Sex -->
         <div class="form-group">
             <label for="sex" class="form-label">Sex <span class="required">*</span></label>
             <select id="sex" name="sex" required>
-                <option value="" disabled selected>Select Sex</option> <!-- Placeholder text -->
+                <option value="" disabled selected>Select Sex</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Prefer not to say">Prefer not to say</option>
             </select>
+             <div class="error-message"></div>
         </div>
 
         <!-- 3. Age -->
         <div class="form-group">
              <label for="age" class="form-label">Age <span class="required">*</span></label>
-             <input type="number" id="age" name="age" min="0" max="120" required placeholder="Enter your age">
+             <input type="number" id="age" name="age" min="1" max="120" required placeholder="Enter your age">
+             <div class="error-message"></div>
         </div>
 
         <!-- 4. Services Availed -->
         <div class="form-group">
             <label for="services_availed" class="form-label">Services Availed <span class="required">*</span></label>
-            <select id="services_availed" name="services_availed" required onchange="toggleOtherService(this.value)">
-                <option value="" disabled selected>Select service</option> <!-- Placeholder text -->
+            <select id="services_availed" name="services_availed" required>
+                <option value="" disabled selected>Select service</option>
                 <option value="Free Wi-Fi for All (FW4A)">Free Wi-Fi for All (FW4A)</option>
                 <option value="Tech4ED-DTC Program">Tech4ED-DTC Program</option>
                 <option value="Cybersecurity Awareness and PNPKI Services">Cybersecurity Awareness and PNPKI Services</option>
@@ -374,12 +380,13 @@
                 <option value="Technical Support">Technical Support</option>
                 <option value="Others">Others</option>
             </select>
+             <div class="error-message"></div>
             <!-- 5. Other Service (Conditional) -->
             <div id="other_service_div" class="mt-2 hidden">
                 <label for="other_service" class="visually-hidden">Other Service Specification</label>
                 <input type="text" id="other_service" name="other_service" placeholder="Please specify other service">
                 <p class="form-hint">Provide details if you selected "Others"</p>
-                 <div class="error-message"></div> <!-- Placeholder for JS error -->
+                 <div class="error-message"></div>
             </div>
         </div>
 
@@ -387,7 +394,7 @@
          <div class="form-group">
             <label for="sector" class="form-label">Sector <span class="required">*</span></label>
             <select id="sector" name="sector" required>
-                <option value="" disabled selected>Select your sector</option> <!-- Placeholder text -->
+                <option value="" disabled selected>Select your sector</option>
                 <option value="Out-of-School Youth & Adults">Out-of-School Youth & Adults</option>
                 <option value="Educators">Educators</option>
                 <option value="Students">Students</option>
@@ -404,29 +411,34 @@
                 <option value="Transport & Logistics Workers">Transport & Logistics Workers</option>
                 <option value="Informal Workers & Daily Wage Earners">Informal Workers & Daily Wage Earners</option>
             </select>
+             <div class="error-message"></div>
          </div>
 
         <!-- 7. Experience Rating -->
         <div class="form-group">
              <label for="rating" class="form-label">Experience Rating <span class="required">*</span></label>
              <select id="rating" name="rating" required>
-                 <option value="" disabled selected>Rate your experience</option> <!-- Placeholder text -->
-                 <option value="4">Very Satisfied (4)</option>
-                 <option value="3">Satisfied (3)</option>
-                 <option value="2">Neutral (2)</option>
-                 <option value="1">Unsatisfied (1)</option>
+                 <option value="" disabled selected>Rate your experience</option>
+                 <option value="5">Excellent (5)</option>
+                 <option value="4">Very Good (4)</option>
+                 <option value="3">Good (3)</option>
+                 <option value="2">Fair (2)</option>
+                 <option value="1">Poor (1)</option>
              </select>
+              <div class="error-message"></div>
         </div>
 
         <!-- 8. Recommendations/Comments -->
         <div class="form-group">
              <label for="recommendations" class="form-label">Recommendations/Comments</label>
              <textarea id="recommendations" name="recommendations" rows="3" placeholder="Any suggestions or feedback? (Optional)"></textarea>
+             <!-- No error message needed for optional field -->
         </div>
 
          <!-- 10. First Time Visit -->
         <div class="form-group first-visit-checkbox-group">
             <label>
+                <!-- IMPORTANT: name attribute MUST match the Google Sheet header -->
                 <input type="checkbox" name="is_first_visit" id="isFirstVisit" value="true">
                 <span>This is my first visit</span>
             </label>
@@ -434,382 +446,354 @@
 
         <!-- 9. Signature Data -->
         <div class="form-group signature-group">
-            <label for="signatureCanvas" class="form-label">Signature <span class="required">*</span></label> <!-- Added required indicator -->
+            <label for="signatureCanvas" class="form-label">Signature <span class="required">*</span></label>
             <div class="canvas-container" id="canvasContainer">
                <canvas id="signatureCanvas"></canvas>
             </div>
              <button type="button" id="clearSignatureBtn" class="clear-btn">Clear Signature</button>
+             <!-- IMPORTANT: name attribute MUST match the Google Sheet header -->
              <input type="hidden" id="signatureData" name="signatureData">
-             <div id="sigError"></div> <!-- Placeholder for JS error -->
+             <div id="sigError"></div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" id="submitButton" class="button-primary">Register Client</button>
+        <button type="submit" id="submitButton" class="button-primary">Register Client</button> <!-- Added id -->
+
+        <!-- Status Message Area -->
+        <div id="formStatus"></div> <!-- Added this div -->
 
     </form>
 
   </div><!-- end .container -->
 
-  <!-- ****** JAVASCRIPT CODE ****** -->
+  <!-- 1. INCLUDE SIGNATURE PAD LIBRARY -->
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+  <!-- 2. CUSTOM JAVASCRIPT -->
   <script>
-    // --- Supabase Setup ---
-    const SUPABASE_URL = 'https://uqurpcrlrcgdrhsfkbtj.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxdXJwY3JscmNnZHJoc2ZrYnRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMyMTEyNDcsImV4cCI6MjA1ODc4NzI0N30.JUQa7VXnG20LXCco7QxRMi1yFS1g7e1ojBuQOb9OZIU';
-
-    // Initialize Supabase Client
-    let supabase; // Declare variable to hold the client later
-
-    try {
-        // Check if the Supabase library loaded and exposed the global 'supabase' object
-        // Use window.supabase to be explicit about checking the global scope
-        if (typeof window.supabase === 'undefined' || typeof window.supabase.createClient !== 'function') {
-            // Throw an error if the library or the createClient function isn't available
-            throw new Error("Supabase library not loaded correctly or 'createClient' function is missing.");
-        }
-
-        // NOW, call createClient on the global object and assign the result
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("Supabase client initialized successfully.");
-
-    } catch (error) {
-        console.error("Error initializing Supabase:", error); // Log the specific error
-        alert("Error connecting to the database. Please check the console and contact support.");
-         const submitBtn = document.getElementById('submitButton');
-         if(submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Connection Error';
-         }
-         // Ensure supabase is null if initialization fails, preventing further errors
-         supabase = null;
-    }
-
-
-    // --- Form Submission Handling ---
-    async function handleSubmit(event) {
-        event.preventDefault();
-        // The check !supabase is now more reliable here
-        if (!supabase) {
-            alert('Database connection is not available. Cannot submit form.');
-            console.error('handleSubmit called but Supabase client is not initialized.');
-            return;
-        }
-
-        const submitButton = document.getElementById('submitButton');
-        const form = event.target; // Get the form element
-
-        let isValid = true;
-        const sigError = document.getElementById('sigError');
-        const canvasContainer = document.getElementById('canvasContainer');
-        const servicesSelect = document.getElementById('services_availed');
-        const otherServiceInput = document.getElementById('other_service');
-        const otherServiceGroup = otherServiceInput.closest('#other_service_div');
-        let otherServiceErrorMsg = otherServiceGroup.querySelector('.error-message');
-
-        // Clear previous errors first
-        sigError.textContent = '';
-        canvasContainer.classList.remove('error-border');
-        if(otherServiceErrorMsg) otherServiceErrorMsg.textContent = '';
-        otherServiceInput.style.borderColor = '#ddd'; // Reset border color
-
-
-        // Capture signature before validation
-        if (!isCanvasBlank(document.getElementById('signatureCanvas'))) {
-             captureSignature();
-        } else {
-             // Explicitly clear signature data if canvas is blank AFTER trying to draw
-             signatureDataInput.value = '';
-        }
-
-        // --- Start Validation ---
-
-        // Validate Signature (must not be empty after capture attempt)
-        const signatureDataInput = document.getElementById('signatureData');
-        if (!signatureDataInput.value) {
-            sigError.textContent = 'Signature is required.';
-            canvasContainer.classList.add('error-border');
-            isValid = false;
-        }
-
-        // Validate 'Other Service' text input if 'Others' selected
-        if (servicesSelect.value === 'Others' && !otherServiceInput.value.trim()) {
-             if (!otherServiceErrorMsg) { // Add error div if somehow missing
-                 otherServiceErrorMsg = document.createElement('div');
-                 otherServiceErrorMsg.className = 'error-message';
-                 otherServiceGroup.appendChild(otherServiceErrorMsg);
-             }
-             otherServiceErrorMsg.textContent = 'Please specify the "Other Service".';
-             otherServiceInput.style.borderColor = '#D8000C';
-             isValid = false;
-        }
-
-        // --- Handle Validation Result ---
-        if (isValid) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Registering...';
-
-            // Prepare data for Supabase (use snake_case for keys matching table columns)
-            const formData = new FormData(form);
-            const registrationData = {
-                full_name: formData.get('fullName'),
-                sex: formData.get('sex'),
-                age: parseInt(formData.get('age'), 10), // Ensure age is an integer
-                services_availed: formData.get('services_availed'),
-                other_service: formData.get('services_availed') === 'Others' ? formData.get('other_service').trim() : null,
-                sector: formData.get('sector'),
-                rating: parseInt(formData.get('rating'), 10), // Ensure rating is an integer
-                recommendations: formData.get('recommendations').trim() || null,
-                is_first_visit: document.getElementById('isFirstVisit').checked, // Boolean value
-                signature_data: formData.get('signatureData') // The base64 Data URL string
-            };
-
-            console.log("Attempting to submit to Supabase:", registrationData);
-
-            try {
-                // Insert data into the 'visitors' table (MAKE SURE 'visitors' IS YOUR TABLE NAME)
-                const { data, error } = await supabase
-                    .from('visitors') // Confirm this table name exists in your Supabase project
-                    .insert([registrationData])
-                    .select(); // Optional: get the inserted row back
-
-                if (error) {
-                    // Throw the error to be caught by the catch block
-                    console.error('Supabase insert error:', error); // Log the detailed error
-                    throw new Error(`Database Error: ${error.message} (Hint: ${error.hint || 'Check table name and RLS policies'})`); // Provide more context in alert
-                }
-
-                // Success!
-                console.log('Supabase insert success:', data);
-                alert('Registration Successful!');
-                form.reset(); // Reset the form fields
-                clearSignature(); // Clear the signature canvas
-                toggleOtherService(''); // Reset conditional field
-                // Ensure error messages are cleared on successful reset
-                sigError.textContent = '';
-                canvasContainer.classList.remove('error-border');
-                if(otherServiceErrorMsg) otherServiceErrorMsg.textContent = '';
-                otherServiceInput.style.borderColor = '#ddd';
-
-
-            } catch (error) {
-                // Handle Supabase error or other errors during submission
-                console.error('Submission error:', error);
-                alert(`Registration failed: ${error.message}`);
-                // Keep form data populated for user to retry/fix if needed
-            } finally {
-                // Re-enable the button whether success or failure
-                submitButton.disabled = false;
-                submitButton.textContent = 'Register Client';
-            }
-
-        } else {
-             console.log('Form validation failed.');
-             // Scroll to the first error field
-             const firstErrorField = document.querySelector('.error-border, input[style*="border-color: rgb(216, 0, 12)"], select[style*="border-color: rgb(216, 0, 12)"]'); // Include select
-             if (firstErrorField) {
-                // Scroll the element into view, centered vertically
-                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Attempt to focus the element after scrolling (preventing the focus scroll jump)
-                // Small delay might help ensure scrolling is finished
-                setTimeout(() => {
-                    if (firstErrorField.tagName === 'INPUT' || firstErrorField.tagName === 'SELECT' || firstErrorField.tagName === 'TEXTAREA' || firstErrorField.id === 'canvasContainer') {
-                        if(firstErrorField.id === 'canvasContainer') {
-                            // Maybe focus the clear button or just leave it scrolled
-                        } else {
-                            firstErrorField.focus({ preventScroll: true });
-                        }
-                    }
-                }, 150); // Adjust delay if needed
-             }
-             // Optionally show a general validation error message
-             // alert("Please fix the errors highlighted in the form.");
-        }
-    }
-
-    // --- Conditional 'Other Service' Field ---
-    function toggleOtherService(selectedValue) {
-        const otherServiceDiv = document.getElementById('other_service_div');
-        const otherServiceInput = document.getElementById('other_service');
-        const otherServiceErrorMsg = otherServiceDiv.querySelector('.error-message');
-
-        if (selectedValue === 'Others') {
-            otherServiceDiv.classList.remove('hidden');
-            otherServiceInput.required = true; // Keep JS validation consistent
-        } else {
-            otherServiceDiv.classList.add('hidden');
-            otherServiceInput.required = false;
-            otherServiceInput.value = ''; // Clear value when hiding
-            // Clear errors when hiding
-            if (otherServiceErrorMsg) otherServiceErrorMsg.textContent = '';
-            otherServiceInput.style.borderColor = '#ddd';
-        }
-    }
-
-    // --- Signature Pad Logic ---
+    // --- DOM Elements ---
+    const form = document.getElementById('registrationForm');
+    const servicesSelect = document.getElementById('services_availed');
+    const otherServiceDiv = document.getElementById('other_service_div');
+    const otherServiceInput = document.getElementById('other_service');
     const canvas = document.getElementById('signatureCanvas');
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(253, 253, 253)'
+    });
     const clearButton = document.getElementById('clearSignatureBtn');
     const signatureDataInput = document.getElementById('signatureData');
-    const sigError = document.getElementById('sigError');
+    const sigErrorDiv = document.getElementById('sigError');
     const canvasContainer = document.getElementById('canvasContainer');
+    const submitButton = document.getElementById('submitButton');
+    const formStatusDiv = document.getElementById('formStatus');
 
-    let drawing = false;
-    let lastX = 0;
-    let lastY = 0;
+    // --- CONFIGURATION: Google Apps Script Web App URL ---
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbww5IncijGSykMP2tFHo8BDL2j7Cldq98VWc-QUzkpNx7t4iobSs7GscBQj7b1AJleN/exec'; // <<< URL INSERTED HERE
+    // --------------------------------------------------
 
-    // Set initial line properties
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#333';
-
-    function resizeCanvas() {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        const width = Math.max(1, rect.width);
-        const height = 150; // Fixed height
-
-        // Only resize if dimensions actually change
-        if (canvas.width !== width || canvas.height !== height) {
-            canvas.width = width;
-            canvas.height = height;
-
-            // Re-apply context settings as they are reset on resize
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = '#333';
-
-            // Clear signature data if canvas was cleared by resize
-            clearSignature(false); // Don't clear existing error state on resize
-        }
+    // Basic check if URL seems valid (not a comprehensive check)
+    if (!SCRIPT_URL || !SCRIPT_URL.startsWith('https://script.google.com/macros/s/')) {
+        console.error("Configuration Error: The SCRIPT_URL seems invalid or is missing.");
+        alert("Configuration Error: Script URL is missing or invalid. Form submission disabled.");
+        submitButton.disabled = true;
+        formStatusDiv.textContent = 'Configuration error: Invalid Script URL.';
+        formStatusDiv.className = 'error';
     }
 
-
-    function getMousePos(canvasDom, event) {
-        var rect = canvasDom.getBoundingClientRect();
-        return {
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top
+    // --- Helper: Debounce function ---
+    function debounce(func, wait = 250, immediate = false) {
+        let timeout;
+        return function() {
+            const context = this, args = arguments;
+            const later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            const callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
         };
     }
 
-    function getTouchPos(canvasDom, touchEvent) {
-        var rect = canvasDom.getBoundingClientRect();
-        return (touchEvent.touches && touchEvent.touches.length > 0) ? {
-             x: touchEvent.touches[0].clientX - rect.left,
-             y: touchEvent.touches[0].clientY - rect.top
-        } : { x: lastX, y: lastY }; // Fallback
+    // --- Helper: Adjust canvas size ---
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        const currentData = signaturePad.toDataURL(); // Save current drawing
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.fromDataURL(currentData); // Re-draw saved drawing
+        clearSignatureError(); // Clear error state on resize
     }
 
-    function startDrawing(e) {
-        if (e.touches) e.preventDefault();
-
-        if (canvas.width <= 0 || canvas.height <= 0) {
-            resizeCanvas();
-             if (canvas.width <= 0 || canvas.height <= 0) {
-                 console.error("Cannot draw on zero/invalid-dimension canvas.");
-                 return;
-             }
+    // --- Helper: Show/Hide Validation Error ---
+    function showError(inputElement, message) {
+        const errorDiv = inputElement.parentElement.querySelector('.error-message, #sigError'); // Target specific error divs
+        if (errorDiv) {
+            errorDiv.textContent = message;
         }
-
-        drawing = true;
-        const pos = (e.touches) ? getTouchPos(canvas, e) : getMousePos(canvas, e);
-        [lastX, lastY] = [pos.x, pos.y];
-
-        // Clear signature error display when user starts drawing again
-        sigError.textContent = '';
-        canvasContainer.classList.remove('error-border');
-        signatureDataInput.value = ''; // Clear hidden input until drawing stops
-    }
-
-
-    function draw(e) {
-        if (!drawing) return;
-        if (e.touches) e.preventDefault();
-
-        const pos = (e.touches) ? getTouchPos(canvas, e) : getMousePos(canvas, e);
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-        [lastX, lastY] = [pos.x, pos.y];
-    }
-
-    function stopDrawing() {
-        if (drawing) {
-            drawing = false;
-            captureSignature(); // Capture signature data *after* drawing stops
+        // Add error border class
+        if (inputElement.id === 'signatureCanvas') {
+             canvasContainer.classList.add('error-border');
+        } else if (inputElement) { // Ensure inputElement exists
+             inputElement.classList.add('error-border');
         }
     }
 
-     function captureSignature() {
-        if (!isCanvasBlank(canvas)) {
-             try {
-                signatureDataInput.value = canvas.toDataURL('image/png');
-             } catch(e) {
-                 console.error("Error capturing signature:", e);
-                 sigError.textContent = "Could not capture signature image.";
-                 canvasContainer.classList.add('error-border');
-                 signatureDataInput.value = ''; // Ensure value is cleared on error
-             }
-        } else {
-             signatureDataInput.value = ''; // Ensure hidden input is empty if canvas is blank
-        }
+    function clearError(inputElement) {
+        const errorDiv = inputElement.parentElement.querySelector('.error-message, #sigError');
+         if (errorDiv) {
+             errorDiv.textContent = '';
+         }
+         // Remove error border class
+         if (inputElement.id === 'signatureCanvas') {
+             canvasContainer.classList.remove('error-border');
+         } else if (inputElement) { // Ensure inputElement exists
+             inputElement.classList.remove('error-border');
+         }
+    }
+
+     function clearSignatureError() {
+         canvasContainer.classList.remove('error-border');
+         if(sigErrorDiv) sigErrorDiv.textContent = '';
      }
 
-    function clearSignature(clearErrorState = true) {
-        if(ctx) {
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-        signatureDataInput.value = ''; // Clear the hidden input
-        if (clearErrorState) {
-             sigError.textContent = ''; // Clear any validation error message
-             canvasContainer.classList.remove('error-border'); // Remove error styling
-        }
-    }
-
-    function isCanvasBlank(canvasToCheck) {
-         if (!canvasToCheck || canvasToCheck.width === 0 || canvasToCheck.height === 0) {
-             return true;
+     function clearAllErrors() {
+         const errorMessages = form.querySelectorAll('.error-message, #sigError');
+         errorMessages.forEach(el => el.textContent = '');
+         const errorBorders = form.querySelectorAll('.error-border');
+         errorBorders.forEach(el => el.classList.remove('error-border'));
+         if(formStatusDiv) {
+             formStatusDiv.textContent = '';
+             formStatusDiv.className = ''; // Clear status style class
          }
-         try {
-            const pixelBuffer = new Uint32Array(
-                ctx.getImageData(0, 0, canvasToCheck.width, canvasToCheck.height).data.buffer
-            );
-            return !pixelBuffer.some(color => color !== 0);
-         } catch (e) {
-             console.error("Canvas inspection failed:", e);
-             // If we can't inspect, cautiously assume it's not blank if user interacted
-             return false;
-         }
-    }
+     }
 
     // --- Event Listeners ---
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseout', stopDrawing);
 
-    canvas.addEventListener('touchstart', startDrawing, { passive: false });
-    canvas.addEventListener('touchmove', draw, { passive: false });
-    canvas.addEventListener('touchend', stopDrawing);
+    // Adjust canvas on window resize (debounced)
+    window.addEventListener("resize", debounce(resizeCanvas));
 
-    clearButton.addEventListener('click', () => clearSignature(true));
+    // Clear Signature Button
+    if(clearButton) {
+        clearButton.addEventListener('click', () => {
+            signaturePad.clear();
+            if(signatureDataInput) signatureDataInput.value = ''; // Clear the hidden input as well
+            clearSignatureError();
+        });
+    }
 
-    // --- Initial Setup ---
-    window.addEventListener('load', () => {
-         resizeCanvas(); // Size canvas correctly on load
-         toggleOtherService(document.getElementById('services_availed').value); // Set initial state
+    // When user starts drawing, clear potential error message
+     if(canvas) {
+         canvas.addEventListener('pointerdown', (event) => {
+             clearSignatureError(); // Clear error as soon as drawing starts
+        });
+         canvas.addEventListener('touchstart', (event) => {
+             clearSignatureError();
+         }, { passive: true });
+     }
 
-         // Ensure error message div exists for 'Other Services'
-         const otherServiceDiv = document.getElementById('other_service_div');
-         if (!otherServiceDiv.querySelector('.error-message')) {
-            const errorMsg = document.createElement('div');
-            errorMsg.className = 'error-message';
-            otherServiceDiv.appendChild(errorMsg);
-         }
+
+    // Toggle "Other Service" field visibility and requirement
+    function toggleOtherService() {
+        if (!servicesSelect || !otherServiceDiv || !otherServiceInput) return; // Add checks
+
+        const selectedValue = servicesSelect.value;
+        const otherErrorDiv = otherServiceInput.parentElement.querySelector('.error-message');
+
+        if (selectedValue === 'Others') {
+            otherServiceDiv.classList.remove('hidden');
+            otherServiceInput.required = true; // Add required attribute dynamically
+        } else {
+            otherServiceDiv.classList.add('hidden');
+            otherServiceInput.required = false; // Remove required attribute
+            otherServiceInput.value = ''; // Clear the input value when hidden
+            clearError(otherServiceInput); // Clear errors when hidden
+        }
+         clearError(servicesSelect); // Clear error on the select itself when changed
+    }
+
+    // Initial setup for Other Service field
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleOtherService(); // Run on load
+        // Small delay for initial canvas resize
+        setTimeout(resizeCanvas, 100);
     });
+    // Add listener to the select dropdown
+    if(servicesSelect) {
+        servicesSelect.addEventListener('change', toggleOtherService);
+    }
 
-    // Adjust canvas size on window resize
-    window.addEventListener('resize', resizeCanvas);
+
+    // --- Form Submission Handler ---
+    function handleSubmit(event) {
+        event.preventDefault(); // Prevent default page reload
+
+        // Ensure critical elements exist before proceeding
+        if (!form || !submitButton || !formStatusDiv || !signaturePad || !signatureDataInput || !canvas) {
+            console.error("Form element(s) missing, cannot submit.");
+            alert("A critical form component is missing. Please reload the page.");
+            return false;
+        }
+
+        let isValid = true;
+        clearAllErrors(); // Clear previous errors and status
+
+        // --- 1. Basic HTML5 Validation & Custom Required Messages ---
+        const requiredInputs = form.querySelectorAll('input[required], select[required]');
+        requiredInputs.forEach(input => {
+            clearError(input); // Clear previous error first
+            if (!input.checkValidity()) {
+                isValid = false;
+                let message = 'This field is required.'; // Default required message
+                 if (input.validity.rangeUnderflow) {
+                     message = `Age must be at least ${input.min}.`;
+                 } else if(input.validity.rangeOverflow) {
+                     message = `Age must be no more than ${input.max}.`;
+                 } else if (input.validity.valueMissing && input.tagName === 'SELECT') {
+                    message = 'Please select an option.';
+                 }
+                showError(input, message);
+            }
+        });
+
+        // --- 2. Custom Validation: "Other Service" ---
+        if (servicesSelect && servicesSelect.value === 'Others') {
+             if (otherServiceInput) {
+                clearError(otherServiceInput); // Clear first
+                if (!otherServiceInput.value || otherServiceInput.value.trim() === '') {
+                    isValid = false;
+                    showError(otherServiceInput, 'Please specify the service.');
+                }
+            }
+        }
+
+        // --- 3. Custom Validation: Signature ---
+        clearSignatureError(); // Clear previous signature error
+        if (signaturePad.isEmpty()) {
+            isValid = false;
+            showError(canvas, 'Signature is required.'); // Use canvas element for showError context
+        } else {
+            // Signature is present, store data URL in the hidden input
+            // Will be done just before sending if form is valid
+        }
+
+
+        // --- Final Check & Submission ---
+        if (isValid) {
+
+             // Ensure signature data is set one last time right before creating FormData
+             if (!signaturePad.isEmpty()) {
+                 signatureDataInput.value = signaturePad.toDataURL('image/png');
+             } else {
+                 // This case should ideally not be reached due to validation above, but as a safeguard:
+                 console.error("Signature became empty unexpectedly before submission.");
+                 showError(canvas, 'Signature is required.');
+                 formStatusDiv.textContent = 'Please fix the errors above.';
+                 formStatusDiv.className = 'error';
+                 if (canvasContainer) canvasContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                 return false; // Stop submission
+             }
+
+            // Disable button and show submitting message
+            submitButton.disabled = true;
+            formStatusDiv.textContent = 'Submitting... Please wait.';
+            formStatusDiv.className = 'submitting'; // Add class for styling
+
+            // Create FormData object from the form
+            const formData = new FormData(form);
+
+            // --- Optional: Log data to console (for debugging) ---
+            console.log("--- Sending Data to Google Sheet ---");
+            for (let [key, value] of formData.entries()) {
+                if (key === 'signatureData' && typeof value === 'string' && value.length > 100) {
+                   console.log(`${key}: [Signature Data Present - Length: ${value.length}]`);
+                } else {
+                   console.log(`${key}: ${value}`);
+                }
+            }
+            console.log("Target URL:", SCRIPT_URL);
+            // -----------------------------------------
+
+
+            // --- Send data to Google Apps Script ---
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'cors' // Standard mode for cross-origin requests expecting a response
+            })
+            .then(response => {
+                if (!response.ok) {
+                     // Try to get error text from response if possible
+                     return response.text().then(text => {
+                         // Check for specific Google Script errors (like redirection)
+                         if (response.type === 'opaque' || text.includes('<title>Google Apps Script</title>')) {
+                              throw new Error(`Script execution failed or redirected. Check script deployment settings (needs 'Anyone' access) and permissions.`);
+                         }
+                         throw new Error(`Network error: ${response.status} ${response.statusText}. Server: ${text || 'No details'}`);
+                     });
+                }
+                return response.json(); // Expect JSON response from Apps Script
+            })
+            .then(data => {
+                console.log('Success Response from Google Script:', data);
+                if (data && data.result === "success") {
+                    formStatusDiv.textContent = 'Registration Submitted Successfully!';
+                    formStatusDiv.className = 'success'; // Add class for styling
+                    form.reset(); // Reset form fields
+                    signaturePad.clear(); // Clear signature canvas
+                    signatureDataInput.value = ''; // **Important:** Clear hidden signature data after successful submit
+                    clearAllErrors(); // Clear any lingering visual error styles
+                    toggleOtherService(); // Ensure 'others' field is hidden again
+
+                    // Optionally clear the success message after a delay
+                    setTimeout(() => {
+                         if (formStatusDiv && formStatusDiv.textContent.includes('Successfully')) {
+                             formStatusDiv.textContent = '';
+                             formStatusDiv.className = '';
+                         }
+                    }, 5000); // Clear after 5 seconds
+
+                } else {
+                    // Handle specific error reported by the Apps Script or unexpected response format
+                    throw new Error(data ? (data.message || JSON.stringify(data)) : 'Invalid response format from script.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error during submission:', error);
+                formStatusDiv.textContent = `Error: ${error.message || 'Could not submit form. Check console.'}`;
+                formStatusDiv.className = 'error';
+            })
+            .finally(() => {
+                // Re-enable button regardless of success or error
+                submitButton.disabled = false;
+            });
+
+        } else {
+            console.log('Form validation failed.');
+            formStatusDiv.textContent = 'Please fix the errors above.';
+            formStatusDiv.className = 'error'; // Add class for styling
+            // Scroll to the first error
+            const firstError = form.querySelector('.error-border');
+            if (firstError) {
+                 // Find the element to scroll to (input/select/textarea or canvas container)
+                 const scrollTarget = firstError.closest('.form-group') || firstError;
+                 if (scrollTarget) scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return false; // Prevent submission if validation fails
+        }
+         return false; // Explicitly return false as we handle submission via fetch
+    }
+
+    // Removed DOMContentLoaded listener for toggleOtherService/resizeCanvas as they are called elsewhere now.
+    // Initial canvas resize added to DOMContentLoaded handler at the end of the script for better timing.
+     document.addEventListener('DOMContentLoaded', () => {
+         // Small delay to ensure layout is final before first resize
+        setTimeout(resizeCanvas, 100);
+        // Initial check for 'Others' field state
+        toggleOtherService();
+    });
 
   </script>
 
