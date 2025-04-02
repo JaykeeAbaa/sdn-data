@@ -447,7 +447,7 @@
              // --- Prepare for Submission ---
              signatureDataInput.value = (signaturePad && !signaturePad.isEmpty()) ? signaturePad.toDataURL('image/png') : '';
 
-             submitButton.disabled = true; formStatusDiv.textContent = Please wait a moment....'; formStatusDiv.className = 'submitting';
+             submitButton.disabled = true; formStatusDiv.textContent = Submitting....'; formStatusDiv.className = 'submitting';
              const formData = new FormData(form);
              console.log("--- Submitting Data (Signature Optional) ---"); // Debug log
              // Log form data (excluding potentially long signature)
