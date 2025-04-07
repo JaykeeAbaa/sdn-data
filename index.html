@@ -188,6 +188,47 @@
     #formStatus.error { color: #dc2626; background-color: var(--bg-color-error-light); border: 1px solid #fca5a5; }
     #formStatus.submitting { color: var(--text-color-secondary); background-color: var(--bg-color-submitting-light); border: 1px solid var(--border-color-medium); }
 
+    /* --- Data Collection Notice Styling --- */
+    .data-collection-notice {
+        margin-top: 25px;
+        padding: 16px 18px;
+        border-radius: 8px;
+        background-color: #f0f9ff; /* Light blue background */
+        border: 1px solid #bae6fd; /* Light blue border */
+        font-size: 13px;
+        color: var(--text-color-secondary);
+        line-height: 1.6;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        transition: all 0.2s ease;
+    }
+    .data-collection-notice:before {
+        content: '\f05a'; /* Font Awesome info icon */
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        left: -10px;
+        top: -10px;
+        background: #0ea5e9; /* Blue background for icon */
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .data-collection-notice p {
+        margin: 0;
+        padding-left: 5px;
+    }
+    .data-collection-notice strong {
+        color: #0369a1; /* Darker blue for emphasis */
+        font-weight: 600;
+    }
+
   </style>
 </head>
 <body>
@@ -318,6 +359,11 @@
         <button type="submit" id="submitButton" class="button-primary">Register Visitor</button> <!-- Updated Button Text -->
         <!-- Status Message Area -->
         <div id="formStatus"></div>
+
+        <!-- Data Collection Notice -->
+        <div class="data-collection-notice">
+            <p><strong>Data Collection Notice:</strong> The information you provide will be used solely for visitor tracking and service improvement purposes. Your data is protected in accordance with the Data Privacy Act of 2012. By submitting this form, you consent to the collection and processing of your personal information. We value your privacy and will not share your information with third parties without your consent.</p>
+        </div>
     </form>
   </div><!-- end .container -->
 
