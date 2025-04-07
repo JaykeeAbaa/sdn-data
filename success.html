@@ -90,11 +90,21 @@
     @keyframes drawCheck { to { stroke-dashoffset: 0; } }
 
     /* --- Text Content Styling & Animation --- */
-    .success-heading, .success-details, .data-collection-notice, .button-primary { opacity: 0; animation: contentFadeIn 0.6s ease-out forwards; }
+    .success-heading, .success-details, .feedback-appreciation, .button-primary { opacity: 0; animation: contentFadeIn 0.6s ease-out forwards; }
     .success-heading { font-size: 28px; font-weight: 700; color: var(--success-color-dark); margin-top: 15px; margin-bottom: 12px; animation-delay: 1.3s; }
-    .success-details { font-size: 16px; color: var(--text-color-secondary); margin-bottom: 30px; line-height: 1.6; animation-delay: 1.5s; }
-    .data-collection-notice { font-size: 13px; color: var(--text-color-subtle); margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); line-height: 1.6; text-align: left; animation-delay: 1.7s; }
-    .data-collection-notice strong { color: var(--text-color-secondary); font-weight: 600; }
+    .success-details { font-size: 16px; color: var(--text-color-secondary); margin-bottom: 15px; line-height: 1.6; animation-delay: 1.5s; }
+    .feedback-appreciation {
+        font-size: 15px;
+        color: #4b5563;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        animation-delay: 1.6s;
+        padding: 12px 15px;
+        background-color: #ecfdf5; /* Light green background */
+        border-radius: 8px;
+        border-left: 3px solid var(--success-color);
+        font-style: italic;
+    }
     @keyframes contentFadeIn { to { opacity: 1; } }
 
     /* --- Button Style --- */
@@ -105,7 +115,7 @@
       cursor: pointer; text-decoration: none; margin-top: 35px;
       transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-      animation-delay: 1.9s;
+      animation-delay: 1.8s;
     }
     .button-primary:hover { background-color: var(--brand-color-dark); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.07); }
     .button-primary:active { transform: translateY(0px); background-color: #c2410c; box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); }
@@ -135,10 +145,7 @@
         </div>
         <h2 class="success-heading">Registration Successful!</h2>
         <p class="success-details">Thank you, your information has been recorded successfully.</p>
-        <div class="data-collection-notice">
-             <strong>Data Collection Notice:</strong> The information you provided will be used solely for visitor tracking and service improvement purposes only. You have the right to request a copy of any
-            personal data that we hold about you, as well as to request its correction if you believe it to be inaccurate, in compliance with and with due respect to the Data Privacy Act of 2012.
-        </div>
+        <p class="feedback-appreciation">Your insights are valuable to us! Your feedback helps us improve our services and better serve our community.</p>
         <a href="index.html" class="button-primary">Register Another Visitor</a> <!-- Updated Button Text -->
     </div>
   </div>
