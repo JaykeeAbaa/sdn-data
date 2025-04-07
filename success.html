@@ -94,21 +94,23 @@
     .success-heading { font-size: 28px; font-weight: 700; color: var(--success-color-dark); margin-top: 15px; margin-bottom: 12px; animation-delay: 1.3s; }
     .success-details { font-size: 16px; color: var(--text-color-secondary); margin-bottom: 15px; line-height: 1.6; animation-delay: 1.5s; }
     .feedback-appreciation {
-        font-size: 16px;
+        font-size: 14px;
         color: var(--text-color-primary);
-        margin-bottom: 30px;
-        line-height: 1.6;
+        margin-bottom: 25px;
+        line-height: 1.5;
         animation-delay: 1.6s;
-        padding: 22px 25px;
+        padding: 16px 18px;
         background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%);
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(16, 185, 129, 0.08);
         position: relative;
         overflow: hidden;
         transition: all 0.3s ease;
         display: flex;
         align-items: flex-start;
-        gap: 15px;
+        gap: 12px;
+        text-align: left;
+        max-width: 100%;
     }
 
     .feedback-appreciation::before {
@@ -130,8 +132,8 @@
 
     .appreciation-icon {
         flex-shrink: 0;
-        width: 38px;
-        height: 38px;
+        width: 32px;
+        height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -144,8 +146,8 @@
     }
 
     .appreciation-icon svg {
-        width: 22px;
-        height: 22px;
+        width: 18px;
+        height: 18px;
         stroke: var(--success-color);
         stroke-width: 2;
         animation: heartBeat 1.5s infinite ease-in-out alternate;
@@ -174,6 +176,25 @@
         70% { transform: scale(1); }
     }
     @keyframes contentFadeIn { to { opacity: 1; } }
+
+    /* Mobile-specific adjustments */
+    @media (max-width: 380px) {
+        .feedback-appreciation {
+            font-size: 13px;
+            padding: 14px 16px;
+            gap: 10px;
+        }
+
+        .appreciation-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .appreciation-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
 
     /* --- Button Style --- */
     .button-primary {
@@ -219,7 +240,7 @@
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
             </div>
-            <p>Thank you for your valuable contribution! Your information helps us improve our services and create a better experience for everyone. We truly appreciate your participation!</p>
+            <p>Thank you for your contribution! Your information helps us improve our services and create better experiences. We appreciate your participation!</p>
         </div>
         <a href="index.html" class="button-primary">Register Another Visitor</a> <!-- Updated Button Text -->
     </div>
